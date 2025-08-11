@@ -5,8 +5,10 @@ import { Navigate } from "react-router-dom";
 function RouteGuard({ children }) {
     let { user } = useContext(WebContext);
     if (user.role === "Guest") {
-        <Navigate to={"/"} relative />
+       return  (<Navigate to={"/Login"} replace />);
     }
+
+
 
     return (children);
 }

@@ -1,31 +1,53 @@
-import { useState, useContext } from 'react'
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
-import { WebContext } from './Auth'
-import NavBar from './Nav/Nav'
-import HomePage from './HomePage/Home'
-import PublicPage from "./PublicPage/PublicPage.jsx"
-import AdminDashBoard from './AdminDashBoard/AdminDashBoard'
-import RouteGuard from './RouteGuard'
+import { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { WebContext } from './Auth';
+
+import NavBar from './Nav/Nav';
+import HomePage from './HomePage/Home';
+import PublicPage from "./PublicPage/PublicPage.jsx";
+import AdminDashBoard from './AdminDashBoard/AdminDashBoard';
+import RouteGuard from './RouteGuard';
+import Login from './Login/Login.jsx';
+import Register from './Register/Register.jsx';
+
 function App() {
-  let user = useContext(WebContext);
-  //rendering
+  let { user } = useContext(WebContext);
+
   return (
     <>
-      <div>
-        <h1>hello world</h1>
-        <NavBar />
-        <h1>{user.role}</h1>
-        <RouteGuard>
-          <Routes>
-            <Route path='/Home' element={HomePage}></Route>
-            <Route path='/Admin' element={AdminDashBoard}></Route>
-            <Route path="/publicPage" element={PublicPage}></Route>
-          </Routes>
-        </RouteGuard>
-      </div>
+      <NavBar />
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/public" element={<PublicPage />} />
+
+        {/* Protected routes */}
+        <Route 
+          path="/home" 
+          element={
+            <RouteGuard>
+              <HomePage />
+            </RouteGuard>
+          } 
+        />
+        <Route 
+          path="/admin" 
+          element={
+            <RouteGuard>
+              <AdminDashBoard />
+            </RouteGuard>
+          } 
+        />
+
+        {/* Redirect unknown routes */}
+        <Route 
+          path="*" 
+          element={<Navigate to={user.role === 'Guest' ? "/login" : "/home"} replace />} 
+        />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

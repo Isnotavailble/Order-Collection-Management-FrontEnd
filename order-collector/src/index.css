@@ -1,0 +1,9 @@
+body {
+     font-family: "Archivo Narrow", sans-serif;
+}
+@font-face {
+  font-family: 'Archivo Narrow';
+  src: url('./assets/ArchivoNarrow-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
