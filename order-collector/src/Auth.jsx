@@ -5,7 +5,7 @@ export let WebContext = createContext(null);
 //this is main for data in and out to WebContext 
 function WebContextProvider({children}){
     let [user,setUser]= useState({
-        username : "Guest",
+        user_name : "Guest",
         role : "Guest"});
     return (
         <WebContext.Provider value={{user,setUser}}>
