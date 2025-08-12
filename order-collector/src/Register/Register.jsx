@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import { WebContext } from "../Auth";
 function Register() {
     const [username, setUserName] = useState("");
@@ -37,8 +37,8 @@ function Register() {
         <form onSubmit={(e) => {
             e.preventDefault();
             submitForm();
-        }}
-        ><h1>Register</h1>
+        }} style={{paddingBottom:"70px"}}
+        ><h1 style={{top:"40px"}}>Register</h1>
             <div className="in-row">
                 <span>Username</span>
                 <input type="text" placeholder=" Enter username .." onChange={e => setUserName(e.target.value)} required />
@@ -53,6 +53,8 @@ function Register() {
             </div>
             <button type="submit">Register</button>
             <b>Already have an account? <Link to={"/Login"}>Login</Link> </b>
+            {error === "Already exist"? <b>{error}</b> : null}
+            {user.role !== "Guest" ? <Navigate to="/HomePage" replace /> : null}
         </form>
     </div>);
 }
