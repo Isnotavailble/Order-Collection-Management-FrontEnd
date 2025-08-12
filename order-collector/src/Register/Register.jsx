@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { Link } from "react-router-dom";
 import { WebContext } from "../Auth";
 function Register() {
     const [username, setUserName] = useState("");
@@ -51,6 +52,7 @@ function Register() {
                 <input type="password" placeholder="Enter password .." onChange={e => setPassword(e.target.value)} required />
             </div>
             <button type="submit">Register</button>
+            <b>Already have an account? <Link to={"/Login"}>Login</Link> </b>
         </form>
     </div>);
 }
