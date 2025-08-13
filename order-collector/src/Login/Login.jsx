@@ -28,12 +28,12 @@ function Login() {
             })
             .then(data => {
                 setUser(p => ({ ...p, user_name: data.username, role: "user" }));
-                console.log("Login success:", data);
+                console.log("Login success: ", data);
 
-            })
+            })  
             .catch(error => {
-                setError("Invalid Email or Password");
-                console.log("Login error:", error.message);
+                setError(error.message);
+                console.log("Login error: ", error.message);
             });
     };
 
@@ -65,8 +65,8 @@ function Login() {
                     />
                 </div>
                 <button type="submit" >Login</button>
-                <b>Don't have a account ? <Link to={"/register"}>register</Link></b>
-                {error === "Invalid Email or Password" ? <b>{error}</b> : null}
+                <b>Don't have an account ? <Link to={"/register"}>Register</Link></b>
+                {error !== "" ? <b>{error}</b> : null}
                 {user.role !== "Guest" ? <Navigate to="/HomePage" replace /> : null}
             </form>
         </div>

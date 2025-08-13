@@ -17,8 +17,8 @@ function Register() {
             body: JSON.stringify({ username, email, password }),
         }).then(response => {
             if (!response.ok)
-                return response.json().then(e => { throw new Error(e.message || "Unkown Error") })
-            return response.json();
+                return response.text().then(e => { throw new Error(e || "Unkown Error") })
+            return response.text();
         })
         .then(data => {
             console.log("data :", data);
@@ -53,7 +53,7 @@ function Register() {
             </div>
             <button type="submit">Register</button>
             <b>Already have an account? <Link to={"/Login"}>Login</Link> </b>
-            {error === "Already exist"? <b>{error}</b> : null}
+            {error !== "" ? <b>{error}</b> : null}
             {user.role !== "Guest" ? <Navigate to="/HomePage" replace /> : null}
         </form>
     </div>);
