@@ -1,0 +1,58 @@
+.publicConext {
+    display: flex;
+    flex: 1;
+    margin-left: 60px;
+
+}
+
+.publicConext .leftSide h1 {
+    font-size: 69px;
+    color: #c71585;
+}
+
+.publicConext .leftSide {
+    width: 100%;
+}
+
+.publicConext .leftSide .textBox {
+    width: 560px;
+}
+
+.publicConext .leftSide p {
+    font-size: 22px;
+}
+
+.publicConext .rightSide {
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+    background-color: black;
+    height: 100vh;
+    padding:10px;
+    width :560px;
+}
+
+.publicConext .rightSide h1 {
+    color: white;
+    font-size: 44px;
+
+}
+.publicConext .rightSide p {
+    color: white;
+    font-size: 19px;
+    margin-bottom: 140px;
+
+}
+.publicConext .rightSide a {
+    background-color: #c71585;
+    font-size: 20px;
+    width: 160px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    margin-bottom: 60px;
+}
