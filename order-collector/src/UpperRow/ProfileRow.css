@@ -1,0 +1,23 @@
+.profileRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    z-index: 6;
+    background-color: #c71585;
+    padding: 25px;
+}
+.profileRow b {
+    position: absolute;
+    right: 100px;
+    font-size: 20px;
+    color : rgb(231, 230, 230);
+}
+.profileRow svg {
+    position: absolute;
+    color: rgb(231, 230, 230);
+    margin-left:10px;
+    right : 40px;
+    width: 50px;
+    height: 50px;
+}

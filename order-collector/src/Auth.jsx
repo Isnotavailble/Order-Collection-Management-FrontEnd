@@ -1,4 +1,4 @@
-import { createContext,useState } from "react";
+import { createContext,useState,useRef } from "react";
 
 export let WebContext = createContext(null);
 //provider function 
@@ -7,8 +7,9 @@ function WebContextProvider({children}){
     let [user,setUser]= useState({
         user_name : "Guest",
         role : "Guest"});
+    let menu = useRef({}); 
     return (
-        <WebContext.Provider value={{user,setUser}}>
+        <WebContext.Provider value={{user,setUser,menu}}>
             {children}
         </WebContext.Provider>
     );

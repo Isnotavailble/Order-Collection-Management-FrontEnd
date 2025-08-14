@@ -9,6 +9,8 @@ body {
   font-family: "Archivo Narrow", sans-serif;
   padding:0px;
   margin:0px;
+  background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+    
 }
 /*reused in register form
  - can check in Login component folder

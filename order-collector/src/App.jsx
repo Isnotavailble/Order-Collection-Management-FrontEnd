@@ -8,46 +8,53 @@ import AdminDashBoard from './AdminDashBoard/AdminDashBoard';
 import RouteGuard from './RouteGuard';
 import Login from './Login/Login.jsx';
 import Register from './Register/Register.jsx';
-
+import ProfileRow from './UpperRow/ProfileRow.jsx';
+import CustomDivHandler from './CustomDivHandler.jsx';
 function App() {
   let { user } = useContext(WebContext);
   let userLocation = useLocation();
   useEffect(() => {
-    console.log("user at : " , userLocation);
-  },[]);
+    console.log("user at : ", userLocation);
+  }, [userLocation.pathname]);
   return (
     <>
-      {userLocation.pathname !== "/login" || userLocation.pathname !== "/register" ? null : <NavBar/> }
-      <Routes>
-        {/* Public routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/public" element={<PublicPage />} />
+      <CustomDivHandler pathName={userLocation.pathname}>
+        <ProfileRow />
+        <NavBar />
+      </CustomDivHandler>
 
-        {/* Protected routes */}
-        <Route
-          path="/home"
-          element={
-            <RouteGuard>
+      <div className='context'>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/public" element={<PublicPage />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/home"
+            element={
+
               <HomePage />
-            </RouteGuard>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <RouteGuard>
-              <AdminDashBoard />
-            </RouteGuard>
-          }
-        />
 
-        {/* Redirect unknown routes */}
-        <Route
-          path="*"
-          element={<Navigate to={user.role === 'Guest' ? "/login" : "/home"} replace />}
-        />
-      </Routes>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RouteGuard>
+                <AdminDashBoard />
+              </RouteGuard>
+            }
+          />
+
+          {/* Redirect unknown routes */}
+          <Route
+            path="*"
+            element={<Navigate to={user.role === 'Guest' ? "/login" : "/home"} replace />}
+          />
+        </Routes>
+      </div>
     </>
   );
 }

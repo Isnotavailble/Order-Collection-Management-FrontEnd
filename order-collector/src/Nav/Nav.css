@@ -1,0 +1,26 @@
+
+.nav-container {
+    position:relative;
+    float: left;
+    top:5px;
+    padding-top:20px;
+    margin-right:100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #c71585;
+    max-width: 140px;
+    width : 140px;
+    height: 100vh;
+    gap:40px;
+    overflow: hidden;
+    z-index: 100;
+    transition: ease all 0.4s;
+  }
+.nav-container a {
+    text-decoration: none;
+}
+.nav-container a:hover {
+    text-decoration: underline;
+    color :rgb(182, 178, 178)
+}
