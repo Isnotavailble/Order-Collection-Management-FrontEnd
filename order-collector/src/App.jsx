@@ -26,6 +26,7 @@ function App() {
       <div className='context'>
         <Routes>
           {/* Public routes */}
+          <Route path="/" element={<PublicPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/public" element={<PublicPage />} />

@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 function CustomDivHandler({ pathName,children }) {
     const [visible, setVisible] = useState(false);
     useEffect(() => {
-        if (pathName.toLowerCase() === "/login" || pathName.toLowerCase() === "/register") {
+        if (pathName.toLowerCase() === "/login" || pathName.toLowerCase() === "/register" || pathName.toLowerCase() === "/") {
             setVisible(false);
             return () => { }
         }
