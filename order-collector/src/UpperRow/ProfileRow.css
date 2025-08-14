@@ -2,14 +2,25 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    position: relative;
+    position: fixed;
     z-index: 6;
     background-color: #c71585;
-    padding: 25px;
+    padding: 22px;
+    width: 100%;
+    top:0px;
+    left:0px;
+}
+.profileRow h1 {
+    position: relative;
+    left : 100px;
+    margin: 0px;
+    color :#f3bbde;
+    text-shadow: 2px 2px 12px rgb(58, 58, 58);
+    
 }
 .profileRow b {
     position: absolute;
-    right: 100px;
+    right: 120px;
     font-size: 20px;
     color : rgb(231, 230, 230);
 }
@@ -17,7 +28,7 @@
     position: absolute;
     color: rgb(231, 230, 230);
     margin-left:10px;
-    right : 40px;
+    right : 50px;
     width: 50px;
     height: 50px;
 }

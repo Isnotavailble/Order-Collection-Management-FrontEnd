@@ -9,11 +9,18 @@ function HomePage() {
         <div className="homeContainer">
             <div className="homeContext">
                 <h1>Welcome,User</h1>
-                <p>Keep managing your business data.</p>
+                <div id="line"></div>
+                <p style={{
+                    fontSize: "24px",
+                    color: "#c71585",
+                    fontWeight: "bold",
+                    marginTop: "-30px"
+                }}>
+                    Keep managing your business data.</p>
                 <div className="text-box">
-                <p>An Order Collection Management System is a web-based platform designed to help businesses efficiently manage customer orders from start to finish.
-                    The system simplifies order tracking, improves accuracy, and reduces manual work.
-                </p>
+                    <p>Your all in one order collection management system,
+                        mainly aimed for entrepreneurs and small business owners.
+                    </p>
                 </div>
             </div>
         </div>);

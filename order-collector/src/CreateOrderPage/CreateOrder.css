@@ -1,0 +1,119 @@
+.create-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+.create-order-content h1 {
+    font-size: 35px;
+    color :#f0eeef;
+    text-shadow: 2px 2px 12px rgb(58, 58, 58);
+    
+}
+
+.create-order-content .form .form-overlay{
+    background-color: #444343;
+    display: flex;
+    flex-direction: row;
+    width :auto;
+    padding: 20px;
+    border-radius: 20px;
+    gap:70px;
+    
+}
+.create-order-content .form {
+    position: relative;
+    height: auto;
+    padding: 20px;
+    width : 970px;
+    border-radius: 20px;
+    background-color: #545454;
+}
+
+.create-order-content .form input {
+    width :200px;
+    height: 33px;
+    padding: 3px;
+    border-radius: 6px;
+    border : none;
+}
+.create-order-content .form .form-left-side{
+    display: flex;
+    flex-direction: column;
+}
+.create-order-content .form .form-left-side input {
+    margin-bottom: 20px;
+}
+.create-order-content .form b {
+    color: #f0eeef;
+    font-size: 21px;
+}
+.create-order-content .form .form-right-side {
+    display: flex;
+    margin :20px;
+    flex-direction: column;
+
+}
+.create-order-content .form .form-right-side .product-table{
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+}
+.create-order-content .form .form-right-side .product-table input {
+    width :145px;
+}
+.create-order-content .form .form-right-side .product-table select,button {
+    border-radius: 6px;
+
+    border:none;
+}
+
+.create-order-content .form .form-right-side .product-table .row {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap :23px;
+}
+.rowHeader b {
+    margin-right: 77px;
+}
+#add-product-btn {
+    display: flex;
+    align-items: center;
+    width : 130px;
+    position: relative;
+
+}
+#trash-pic {
+    width :22px;
+}
+#add-icon {
+    width : 30px;
+    color:wheat;
+}
+#sendBtn  svg {
+    width: 40px;
+    height: 30px;
+    color: white;
+}
+#sendBtn b {
+    color : #f0eeef;
+    font-weight: 600;
+    font-size: 17px;
+}
+#sendBtn {
+    display: flex;
+    align-items: center;
+    border-radius: 14px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 19px;
+    background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+}
+.form .btn-row{
+    display: flex;
+    margin:4px;
+    margin-top: 19px;
+    gap:40px;
+
+}

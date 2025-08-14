@@ -31,7 +31,7 @@
     background-color: black;
     height: 100vh;
     padding:10px;
-    width :560px;
+    width :550px;
 }
 
 .publicConext .rightSide h1 {
@@ -47,12 +47,13 @@
 }
 .publicConext .rightSide a {
     background-color: #c71585;
+    color: rgb(234, 235, 236);
     font-size: 20px;
-    width: 160px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    width: 180px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     text-align: center;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 30px;
     margin-bottom: 60px;
 }

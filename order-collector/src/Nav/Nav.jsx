@@ -8,12 +8,14 @@ function NavBar() {
     return (
         <>
             <div className="nav-container" ref={ (el) => {if (el) menu.current["menu"] = el}}>
+                <div className="nav-links">
                 <Link to={"/home"}>Home</Link>
                 <Link to={"/createorders"}>Create Order</Link>
                 <Link to={"/editorders"}>Edit Orders</Link>
                 <Link to={"/orders"}>Orders</Link>
                 <Link to={"/contactus"}>Contact Us</Link>
                 <Link to={"/about"}>About</Link>
+                </div>
             </div>
 
         </>);

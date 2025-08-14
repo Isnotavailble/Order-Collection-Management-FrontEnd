@@ -1,24 +1,28 @@
 
 .nav-container {
-    position:relative;
+    position:fixed;
     float: left;
-    top:5px;
+    top:100px;
     padding-top:20px;
     margin-right:100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #c71585;
     max-width: 140px;
     width : 140px;
     height: 100vh;
-    gap:40px;
-    overflow: hidden;
     z-index: 100;
+    overflow: hidden;
     transition: ease all 0.4s;
   }
+.nav-container .nav-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:40px;
+    min-width: 100px;
+}
 .nav-container a {
     text-decoration: none;
+    min-width: auto;
 }
 .nav-container a:hover {
     text-decoration: underline;

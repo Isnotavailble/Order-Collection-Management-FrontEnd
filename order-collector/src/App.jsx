@@ -10,6 +10,7 @@ import Login from './Login/Login.jsx';
 import Register from './Register/Register.jsx';
 import ProfileRow from './UpperRow/ProfileRow.jsx';
 import CustomDivHandler from './CustomDivHandler.jsx';
+import CreateOrder from './CreateOrderPage/CreateOrder.jsx';
 function App() {
   let { user } = useContext(WebContext);
   let userLocation = useLocation();
@@ -40,6 +41,11 @@ function App() {
 
             }
           />
+          
+          <Route 
+          path='/createorders' 
+          element={<CreateOrder/>}/>
+
           <Route
             path="/admin"
             element={
