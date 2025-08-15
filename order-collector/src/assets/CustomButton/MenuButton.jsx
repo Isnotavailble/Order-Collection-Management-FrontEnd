@@ -12,8 +12,9 @@ function MenuButtom() {
         const checkBox = document.getElementById(box_id);
         if (!checkBox.checked) {
             menu.current["menu"].style.maxWidth = "0px";
+            menu.current["menu-clone"].style.maxWidth = "0px";
         }
-        else { menu.current["menu"].style.maxWidth = "140px"; }
+        else { menu.current["menu"].style.maxWidth = "140px";menu.current["menu-clone"].style.maxWidth = "140px"; }
     }
     return (<div className="custom_btn">
         <label className="burger" for="burger">
