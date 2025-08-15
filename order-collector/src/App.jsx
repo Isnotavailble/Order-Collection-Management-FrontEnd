@@ -13,20 +13,25 @@ import CustomDivHandler from './CustomDivHandler.jsx';
 import CreateOrder from './CreateOrderPage/CreateOrder.jsx';
 function App() {
   let { user, menu } = useContext(WebContext);
+  let [contentHeight,setContentHeight] = useState(0);
   let userLocation = useLocation();
   let resizeOberver = new ResizeObserver((entries) => {
     let { height } = entries[0].contentRect;
-    console.log("Context Height : ", height);
-    menu.current["menu-clone"].style.height = height + "px";
-    console.log("Menu : " + menu.current["menu-clone"].style.height);
+    setContentHeight(height);
+    //menu.current["menu-clone"].style.height = height + "px";
   });
   useEffect(() => {
     resizeOberver.observe(document.getElementById("page-content"));
   }, []);
+  useEffect(() => {
+    if (menu.current["menu-clone"])
+    menu.current["menu-clone"].style.height = contentHeight + "px";
+    console.log("Height : " + contentHeight + "px");
+  },[contentHeight]);
 
   useEffect(() => {
     console.log("user at : ", userLocation);
-    if(userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
+    if(userLocation.pathname == "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
       document.getElementById("page-content").style.marginTop = "0px";
     }
   }, [userLocation.pathname]);

@@ -103,9 +103,15 @@
     align-items: center;
     border-radius: 14px;
     padding: 10px;
-    padding-left: 13px;
-    padding-right: 19px;
+    width:170px;
+    max-height: 60px;
+    min-height: 60px;
+    transition: all ease 0.4s;
     background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+}
+#sendBtn:hover{
+    width: 190px;
+    padding-left: 20px;
 }
 .form .btn-row{
     display: flex;
@@ -113,4 +119,36 @@
     margin-top: 19px;
     gap:40px;
 
+}
+.form .btn-row .status-btn-container {
+    display: flex;
+    flex-direction: column;
+
+}
+.form .btn-row .status-btn-container .status-btn-gp{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top:6px;
+    max-height: 150px;
+    overflow: hidden;
+    transition: ease all 0.4s;
+}
+
+.form .btn-row .status-btn-container .status-btn-gp button{
+    display: block;
+    color: white;
+    font-size: 15px;
+    margin-top: 3px;
+    border-radius: 9px;
+    max-width: 110px;
+    width:87px;
+    height: 40px;
+    min-height: 40px;
+    transition: ease  0.4s;
+    background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+
+}
+.form .btn-row .status-btn-container .status-btn-gp button:hover{
+    width: 110px;
 }
