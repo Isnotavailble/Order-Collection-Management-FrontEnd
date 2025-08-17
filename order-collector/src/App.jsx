@@ -28,12 +28,17 @@ function App() {
     menu.current["menu-clone"].style.height = contentHeight + "px";
     console.log("Height : " + contentHeight + "px");
   },[contentHeight]);
-
+  
   useEffect(() => {
     console.log("user at : ", userLocation);
-    if(userLocation.pathname == "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
+    if(userLocation.pathname === "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
       document.getElementById("page-content").style.marginTop = "0px";
+      return;
     }
+    //updated : handle redirecting from login and register page
+    //load the style before CSS file is load.(Safest way)
+    document.getElementById("page-content").style.marginTop = "130px";
+    return () => {}
   }, [userLocation.pathname]);
 
   return (

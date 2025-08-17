@@ -10,6 +10,8 @@ const MenuBtn = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
 </svg>
 
 function CreateOrder() {
+    //status like 404 or somthing like that
+    let [responseStatus, setResponseStatus] = useState("");
     // product rows' data 
     //Date.now() just generate non-repeat number so I used it as id
     let [row, setRow] = useState([{
@@ -37,7 +39,7 @@ function CreateOrder() {
     //orderType for btn
     //update : the className should be orderType so keep that in mind !     
     let orderStatus = ["Delivery", "PickUp"];
-    let buttonsGroup = useRef({});//DOM obj for buttons 
+    let buttonsGroup = useRef({});//DOM obj for buttons or the whole page assume like a VRDom 
     //make default if enter this page again
     useEffect(() => {
         if (buttonsGroup.current["status-btn-gp"]) {
@@ -102,10 +104,6 @@ function CreateOrder() {
         setRow(p => [...p, { "id": Date.now(), "productName": "", "price": 0 }]);
         console.log("Data added");
     }
-    //for orderstatus drop down 
-    function showAndHideHandler(element) {
-        element.style.maxHeight = element.style.maxHeight !== "0px" ? "0px" : "150px";
-    }
     //because of spring security,have to enter the generated password from spring api 
     //send request the data to api
     function postData(url) {
@@ -121,7 +119,8 @@ function CreateOrder() {
                 "customerAddress": rightSideData["customer"].address
             },
             "orderItems": row.map((el, index) => (
-                {   "quantity" : el.price,
+                {
+                    "quantity": el.price,
                     "product": {
                         "productName": el.productName,
                         "productCategory": "Not Yet",
@@ -130,29 +129,50 @@ function CreateOrder() {
                 }
             ))
         }
-        console.log("request : " ,request);
-        
+        console.log("request : ", request);
+
         fetch(url, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(request),
-            credentials : "include"
         })
-        .then(response => {
-            if (!response.ok){
-                throw new Error ("Error while sending order");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Response fro api : ",data)
-        })
-        .catch(error => {
-            console.log("Error : " + error.message);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw new Error(error.message || "Unkown Error") });
+                }
+                return response.json();
+            })
+            .then(data => {
+                setResponseStatus(data.message);
+                console.log("Response fro api : ", data);
+            })
+            .catch(error => {
+                setResponseStatus(String(error.message).includes("Fail") ? "unable to create order" : error.message);
+                console.log("Error : " + error.message);
+            });
     }
+    // Animations
+    //for orderstatus drop down 
+    function showAndHideHandler(element) {
+        element.style.maxHeight = element.style.maxHeight !== "0px" ? "0px" : "150px";
+    }
+    //for status message animation ("order created successfully or .. etc")
+    useEffect(() => {
+        if (buttonsGroup.current["status-ms"]) {
+            buttonsGroup.current["status-ms"].style.maxWidth = "0px";
+            buttonsGroup.current["status-ms"].style.padding = "0px";
+        }
+        return () => { }
+    }, []);
+    useEffect(() => {
+        if (responseStatus && buttonsGroup.current['status-ms']) {
+            buttonsGroup.current["status-ms"].style.maxWidth = "500px";
+            buttonsGroup.current["status-ms"].style.padding = "10px";
+        }
+        return () => { }
+    }, [responseStatus]);
     return (
         <div className="create-order-content">
             <h1>Create Order</h1>
@@ -192,8 +212,8 @@ function CreateOrder() {
                                     <button key={index} onClick={() => setOrderType(el)}>{el} </button>)}
                             </div>
                         </div>
+                        <b id="status-ms" ref={element => { if (element) buttonsGroup.current["status-ms"] = element }}>{responseStatus ? responseStatus : null}</b>
                     </div>
-
                 </div>
             </div>
         </div>
