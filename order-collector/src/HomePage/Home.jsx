@@ -1,6 +1,5 @@
 import { WebContext } from "../Auth";
 import { useContext } from "react";
-import TableDemo from "../CardModels/TableDemo";
 import ProfileRow from "../UpperRow/ProfileRow";
 import "./Home.css";
 function HomePage() {

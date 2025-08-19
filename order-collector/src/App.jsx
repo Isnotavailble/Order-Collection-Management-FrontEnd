@@ -11,6 +11,7 @@ import Register from './Register/Register.jsx';
 import ProfileRow from './UpperRow/ProfileRow.jsx';
 import CustomDivHandler from './CustomDivHandler.jsx';
 import CreateOrder from './CreateOrderPage/CreateOrder.jsx';
+import EditOrders from './EditOrdersPage/EditOrder.jsx';
 function App() {
   let { user, menu } = useContext(WebContext);
   let [contentHeight,setContentHeight] = useState(0);
@@ -67,6 +68,8 @@ function App() {
           <Route
             path='/createorders'
             element={<CreateOrder />} />
+
+          <Route path="/editorders" element={<EditOrders/>}/>
 
           <Route
             path="/admin"
