@@ -1,0 +1,47 @@
+.overlay-e{
+    position:fixed;
+    top:100px;
+    height : 100%;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.596);
+    z-index: 20;
+}
+
+.overlay-e .bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 100%;
+}
+.overlay-e .bg .e-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width : 320px;
+    height: 90px;
+    padding:20px;
+    background-color: #d6c4cf;
+    border-radius: 11px;
+    z-index: 22;
+}
+.overlay-e .bg .e-container b {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+.overlay-e .bg .e-container button {
+    width : 80px;
+    height: 30px;
+    max-width: 100px;
+    max-height: 33px;
+    font-size: 18px;
+    color:white;
+    background-color: #c71585;
+    transition: all ease 0.12s;
+}
+.overlay-e .bg .e-container button:hover{
+    height: 33px;
+    width: 88px;
+}
