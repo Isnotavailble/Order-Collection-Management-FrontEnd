@@ -21,7 +21,9 @@ function EditOrders(props) {
     let [requestOrderId, setRequestOrderId] = useState(0);
     //for prodcut rows
     let [row, setRow] = useState([
-        { "id": Date.now(), "productName": "", "price": "", "quantity": "" }]);
+        { "id": Date.now(), "productName": "", "price": "", "quantity": "", "delete": false }]);
+    // deleted product rows
+    let [deletedItem, setDeletedItem] = useState([]);
     //customer data and order date data
     let [rightSideData, setRightSideData] = useState({
         "customer": {
@@ -30,7 +32,7 @@ function EditOrders(props) {
             "phone_number": ""
         },
         "order": {
-            "order_id" : "",
+            "order_id": "",
             "order_status": "pending",
             "start_date": "",
             "end_date": ""
@@ -59,7 +61,16 @@ function EditOrders(props) {
                         <input type="number" placeholder="1" min="1" value={el.quantity}
                             onChange={e => inputHandle(e, el.id, "quantity")}
                         />
-                        <button onClick={() => deleteRow(el.id)}><img id="trash-pic" src={TrashPic} /></button>
+                        <button
+                            onClick={() => {
+                                if (el.productName !== "" && el.price > 0 && el.quantity > 0) {
+                                    el.delete = true;
+                                    setDeletedItem(prev => [...prev, el]);
+                                }
+                                deleteRow(el.id);
+                            }}>
+                            <img id="trash-pic" src={TrashPic} />
+                        </button>
                     </div>));
         }
         return null;
@@ -71,7 +82,7 @@ function EditOrders(props) {
         console.log("Deleted : ", idToRemoveRow);
     }
     function addRow() {
-        setRow(p => [...p, { "id": Date.now(), "productName": "", "price": "", "quantity": 0 }]);
+        setRow(p => [...p, { "id": Date.now(), "productName": "", "price": "", "quantity": 0, "delete": false }]);
         console.log("Data added");
     }
     //animations
@@ -113,10 +124,22 @@ function EditOrders(props) {
     useEffect(() => {
         console.log("req id : " + requestOrderId);
     }, [requestOrderId]);
+    useEffect(() => {
+        console.log("deleted row : ", deletedItem);
+    }, [deletedItem]);
+
     //data transfer to state varibles
     useEffect(() => {
         if (order_data != null) {
-            setRow(prev => order_data.orderItem.map((item, index) => { return { "id": Date.now() + index, "productName": item.product_name, "price": item.product_price, "quantity": item.quantity } }
+            setRow(prev => order_data.orderItem.map((item, index) => (
+                {
+                    "id": Date.now() + index,
+                    "productName": item.product_name,
+                    "price": item.product_price,
+                    "quantity": item.quantity,
+                    "delete": false
+                }
+            )
             ));
 
             setRightSideData(prev => ({
@@ -127,7 +150,7 @@ function EditOrders(props) {
                     "phone_number": order_data.customer.phone_number
                 },
                 "order": {
-                    "order_id" : order_data.orderID,
+                    "order_id": order_data.orderID,
                     "order_status": order_data.orderStatus,
                     "start_date": order_data.orderDate,
                     "end_date": order_data.dueDate,
@@ -162,8 +185,13 @@ function EditOrders(props) {
             });
     }
 
+    //update order
+    //function updateOrder() {
+    //fetch()
+    //}
+
     return (<>
-        {response.toLocaleLowerCase().includes("not found")? <OverlayV1 message={response} setResponse={setResponse}/> : null}
+        {response.toLocaleLowerCase().includes("not found") ? <OverlayV1 message={response} setResponse={setResponse} /> : null}
         <CreateOrderStyleWrapper>
             <div className="create-order-content">
                 <h1>Edit Order</h1>
@@ -213,7 +241,7 @@ function EditOrders(props) {
                             </div>
                         </div>
                         <div className="btn-row">
-                            <button id="sendBtn"> {SendOrderPic} <b> Confirm Update </b></button>
+                            <button id="sendBtn" onClick={() => { }}> {SendOrderPic} <b> Confirm Update </b></button>
                             <div className="status-btn-container">
                                 <button id="sendBtn" onClick={() => showAndHideHandler(refObj.current["status-btn-gp"])}>
                                     {MenuBtn} <b> OrderType : {selectedOrderType} </b>
