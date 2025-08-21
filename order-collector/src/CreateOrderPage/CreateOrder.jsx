@@ -120,7 +120,8 @@ function CreateOrder() {
             },
             "orderItems": row.map((el, index) => (
                 {
-                    "quantity": el.price,
+                    "quantity": el.quantity,
+                    "priceAt" : el.price,
                     "product": {
                         "productName": el.productName,
                         "productCategory": "Not Yet",
