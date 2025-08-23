@@ -12,6 +12,7 @@ import ProfileRow from './UpperRow/ProfileRow.jsx';
 import CustomDivHandler from './CustomDivHandler.jsx';
 import CreateOrder from './CreateOrderPage/CreateOrder.jsx';
 import EditOrders from './EditOrdersPage/EditOrder.jsx';
+import OrderDashBoard from './Orders/OrderDashBoard.jsx';
 function App() {
   let { user, menu } = useContext(WebContext);
   let [contentHeight,setContentHeight] = useState(0);
@@ -23,6 +24,7 @@ function App() {
   });
   useEffect(() => {
     resizeOberver.observe(document.getElementById("page-content"));
+    return () => resizeOberver.disconnect;
   }, []);
   useEffect(() => {
     if (menu.current["menu-clone"])
@@ -70,7 +72,7 @@ function App() {
             element={<CreateOrder />} />
 
           <Route path="/editorders" element={<EditOrders/>}/>
-
+            <Route path="/ordersdashboard" element={<OrderDashBoard/>}/>
           <Route
             path="/admin"
             element={

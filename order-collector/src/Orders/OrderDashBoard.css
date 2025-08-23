@@ -1,0 +1,28 @@
+
+.order-dashboard-contianer h1{
+ color: #c71585;   
+}
+.board-upper-row{
+    display: flex;
+    flex-direction: row;
+    gap:27px;
+}
+.board-upper-row button{
+    font-weight: normal;
+    font-size: 14px;
+    width : 130px;
+    max-height: 35px;
+    color : rgb(235, 226, 226);
+}
+#cancelled-btn{
+    background-color: #e00a3c;
+}
+#complete-btn {
+    background-color: #079651;
+}
+#pending-btn {
+    background-color: #ff9a03;
+}
+#default-btn {
+    background-color: #3b3b3b;
+}

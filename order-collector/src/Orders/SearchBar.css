@@ -1,0 +1,67 @@
+
+.orders-search-bar-container{
+    display: flex;
+    flex-direction: column;
+    flex  :1;
+    margin-right: -50px;
+}
+.orders-search-bar-container input {
+    border-radius: 8px;
+    width : 240px;
+    height: 24px;
+    border:none;
+    padding:4px;
+    padding-left: 10px;
+    margin-right: 13px;
+    transition: ease all 0.3s;
+}
+.orders-search-bar-container input::placeholder{
+    position:relative;
+    left:20px;
+}
+.orders-search-bar-container input:focus{
+    outline: none;
+    margin-right:25px;
+    padding-left: 13px;
+}
+.orders-search-bar-container .orders-search-bar-row button {
+    background-color: #c71585;
+    color: aliceblue;
+    font-size: 11px;
+    width : 96px;
+    height: 33px;
+    border-radius: 8px;
+    position: relative;
+    left : -96px;
+    margin-left: 5px;
+}
+.orders-search-bar-container .search-by-options{
+    
+    display: flex;
+    margin-top:5px;
+    border-radius: 5px;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    max-height: 100px;
+    height: 100%;
+    width : 140px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    background-color: rgb(255, 255, 255);
+    transition: all ease 0.2s;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.orders-search-bar-container .search-by-options button {
+    background-color: #c71585;
+    font-size: 11px;
+    color : white;
+    max-width: 100px;
+    width : 100%;
+    padding: 10px; 
+
+}

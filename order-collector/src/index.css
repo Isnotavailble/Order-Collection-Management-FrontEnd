@@ -36,7 +36,6 @@ body {
     margin-right:100px;
     max-width: 140px;
     width : 140px;
-    height: 200vh;
     z-index: 0;
     overflow: hidden;
     transition: ease all 0.4s;
