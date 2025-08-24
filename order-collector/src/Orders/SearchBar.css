@@ -36,9 +36,11 @@
     margin-left: 5px;
 }
 .orders-search-bar-container .search-by-options{
+    position: absolute;
     
     display: flex;
-    margin-top:5px;
+    margin-top:35px;
+    margin-left :136px;
     border-radius: 5px;
     flex: 1;
     flex-direction: column;

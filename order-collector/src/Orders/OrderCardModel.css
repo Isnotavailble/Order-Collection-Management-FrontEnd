@@ -1,0 +1,236 @@
+.order-card-model-container {
+    background-color: #545454;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+
+}
+
+.order-card-model-container h1 {
+    color: white;
+    font-size: 33px;
+
+    letter-spacing: 4px;
+}
+
+.order-card-model-container p {
+    color: white;
+    margin-top: -20px;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+
+.order-card-model-container h3 {
+    color: white;
+    font-size: 28px;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.order-card-model-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #3d3c3c;
+    border-radius: 20px;
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+.order-card-model-content .card-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+}
+
+.order-card-model-content .middle-row p {
+    width: 22ch;
+}
+
+
+.products-table {
+    width: 100%;
+    border-radius: 10px;
+    position: relative;
+    right: -47px;
+    margin-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    max-width: 74%;
+    background-color: rgb(100, 98, 98);
+    display: block;
+    /* changed from flex */
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.products-table .table-header {
+    display: flex;
+    flex-direction: row;
+    max-height: 70px;
+    gap: 30px;
+}
+
+.products-table .table-header h3 {
+    text-align: center;
+    width: 20ch;
+}
+
+.products-table .table-header h3 {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.table-body {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    scrollbar-width: thin;
+}
+
+.table-row {
+    /*background-color: black;*/
+    display: flex;
+    padding-top: 34px;
+    border-bottom: 1px solid #eee;
+    max-height: 50px;
+    gap: 80px;
+}
+
+.table-row p {
+    text-align: center;
+    font-weight: normal;
+    color: white;
+}
+
+/* Optional: Style the scrollbar for Webkit browsers */
+.table-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-body::-webkit-scrollbar-track {
+    background: #222;
+}
+
+
+.total-price {
+    position: relative;
+    margin-right: 80px;
+    float: right;
+}
+
+.status-row {
+    display: flex;
+    margin-top: 20px;
+    border-radius: inherit;
+    background-color: #3d3c3c;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 100px;
+}
+
+.status-display {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-display p {
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+    background-color: #ff9a03;
+    border-radius: 9px;
+    height: 24px;
+    width : 11ch;
+    height: 24px;
+    padding:5px;
+    text-align: center;
+    
+    position: relative;
+}
+
+.update-order-btn {
+    background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    padding-left: 12px;
+    width: 170px;
+    margin-top: 20px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    max-height: 52px;
+    transition: width 0.4s ease, padding-left 0.4s ease;
+}
+
+.update-order-btn:hover {
+    
+    cursor: pointer;
+    padding-left: 20px;
+    width: 180px;
+}
+
+.update-order-btn svg {
+    width: 26px;
+    height: 40px;
+}
+.status-options{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(51, 48, 51, 0.932);
+    width : 110px;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    max-height: 100px;
+    overflow: hidden;
+    transition: all ease 0.2s;
+    gap:5px;
+}
+.status-options button {
+    width : 77px;
+    padding: 8px;
+    font-size: 12px;
+    background-color:rgba(255, 106, 146, 1);
+    color: white;
+}
+.status-options button:hover {
+    background-color: #000000;
+    cursor: pointer;
+}
+#pending-btn1 {
+    background-color: #ff9a03;
+}
+#complete-btn1 {
+    background-color: #079651;
+}
+#cancelled-btn1 {
+    background-color: #e00a3c;
+}

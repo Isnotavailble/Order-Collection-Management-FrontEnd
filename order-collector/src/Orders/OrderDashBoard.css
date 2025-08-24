@@ -1,28 +1,53 @@
-
-.order-dashboard-contianer h1{
- color: #c71585;   
+.order-dashboard-contianer {
+    max-width: 1360px;
 }
-.board-upper-row{
+
+.order-dashboard-contianer h1 {
+    font-size: 35px;
+    color: #f0eeef;
+    text-shadow: 2px 2px 12px rgb(58, 58, 58);
+
+}
+
+.board-upper-row {
     display: flex;
     flex-direction: row;
-    gap:27px;
+    gap: 27px;
 }
-.board-upper-row button{
+
+.board-upper-row button {
     font-weight: normal;
     font-size: 14px;
-    width : 130px;
+    width: 130px;
     max-height: 35px;
-    color : rgb(235, 226, 226);
+    color: rgb(235, 226, 226);
+    transition: all ease 0.5s;
 }
-#cancelled-btn{
+#default-btn:hover,#pending-btn:hover,#cancelled-btn:hover,#complete-btn:hover{
+    cursor:pointer;
+    background-color: #000000;
+}
+#cancelled-btn {
     background-color: #e00a3c;
 }
+
 #complete-btn {
     background-color: #079651;
 }
+
 #pending-btn {
     background-color: #ff9a03;
 }
+
 #default-btn {
     background-color: #3b3b3b;
+}
+
+.order-cards-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+    max-width: 950px;
+    margin-top:5px;
 }
