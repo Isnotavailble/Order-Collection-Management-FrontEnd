@@ -24,7 +24,7 @@ function OrderDashBoard() {
             })
             .catch(error => {
                 if (String(error.message).toLowerCase().includes("fetch")) {
-                    setResponseMessage("please check your internet connection ");
+                    setResponseMessage("Please check your internet connection!");
                     return;
                 }
                 setResponseMessage(error.message);
@@ -33,7 +33,7 @@ function OrderDashBoard() {
     }
     //load all orders of the user 
     useEffect(() => {
-        getOrders(1);
+        getOrders(2);
     }, []);
     return (
         <div>
@@ -46,9 +46,9 @@ function OrderDashBoard() {
                 <div className="board-upper-row">
                     <SearchBar />
                     <button id="default-btn" className="upper-btn">Default</button>
-                    <button id="pending-btn" className="upper-btn">pending</button>
-                    <button id="complete-btn" className="upper-btn">complete</button>
-                    <button id="cancelled-btn" className="upper-btn">cancelled</button>
+                    <button id="pending-btn" className="upper-btn">Pending</button>
+                    <button id="complete-btn" className="upper-btn">Completed</button>
+                    <button id="cancelled-btn" className="upper-btn">Cancelled</button>
                 </div>
                 <div className="order-cards-list">
                     {orders.map((order, index) => <div key={`orderCard-` + index}><OrderCardModel data={order} /></div>)}

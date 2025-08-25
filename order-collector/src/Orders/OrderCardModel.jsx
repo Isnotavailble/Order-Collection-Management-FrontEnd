@@ -8,19 +8,19 @@ const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 </svg>
 function OrderCardModel({ data }) {
-    let [status, setStatus] = useState("pending");//selected status
+    let [status, setStatus] = useState("Pending");//selected status
     let refObj = useRef({});//DOM references
-    let status_options = ["pending", "complete", "cancelled"];
+    let status_options = ["Pending", "Completed", "Cancelled"];
     let [dataCard, setDataCard] = useState({});
     useEffect(() => {
         setDataCard({
             "orderType": data.orderType? data.orderType : "Order Type",
             "orderId": data.orderID? data.orderID : "101",
-            "date": data.dueDate? data.dueDate : "MM/HH/DD",
-            "createdAt": data.orderDate? data.orderDate : "MM/HH/DD",
+            "date": data.dueDate? data.dueDate : "YY/MM/DD",
+            "createdAt": data.orderDate? data.orderDate : "YY/MM/DD",
             "customerName": data.customer.name? data.customer.name : "Customer Name",
             "customerAddress": data.customer.address? data.customer.address : "Customer Address",
-            "phoneNumber": data.customer.phone_number? data.customer.phone_number : "+91-XXXXXXXXXX",
+            "phoneNumber": data.customer.phone_number? data.customer.phone_number : "+95-XXXXXXXXXX",
             "orderItems": data.orderItem? data.orderItem : [
                 { "product_name": "product name", "product_price": 0, "quantity": 0 },
                 { "product_name": "prodcut name", "product_price": 0, "quantity": 0 },
