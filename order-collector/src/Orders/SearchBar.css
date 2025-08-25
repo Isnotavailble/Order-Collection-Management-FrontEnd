@@ -35,6 +35,10 @@
     left : -96px;
     margin-left: 5px;
 }
+.orders-search-bar-container .orders-search-bar-row button:hover,.orders-search-bar-container .search-by-options button:hover{
+    background-color: #3a3839;
+    cursor: pointer;
+}
 .orders-search-bar-container .search-by-options{
     position: absolute;
     

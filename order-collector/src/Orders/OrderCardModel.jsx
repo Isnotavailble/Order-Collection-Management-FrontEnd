@@ -7,30 +7,26 @@ const delete_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
 const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 </svg>
-function OrderCardModel({ orderType, data }) {
+function OrderCardModel({ data }) {
     let [status, setStatus] = useState("pending");//selected status
     let refObj = useRef({});//DOM references
     let status_options = ["pending", "complete", "cancelled"];
     let [dataCard, setDataCard] = useState({});
     useEffect(() => {
-        if (data) {
-            setDataCard(data);
-            return () => { };
-        }
         setDataCard({
-            "orderType": "Order Type",
-            "orderId": "101",
-            "date": "MM/HH/DD",
-            "createdAt": "MM/HH/DD",
-            "customerName": "Customer Name",
-            "customerAddress": "Customer Address",
-            "phoneNumber": "+91-XXXXXXXXXX",
-            "products": [
-                { "productName": "product name", "price": 0, "quantity": 0 },
-                { "productName": "prodcut name", "price": 0, "quantity": 0 },
-                { "productName": "product name", "price": 0, "quantity": 0 },
+            "orderType": data.orderType? data.orderType : "Order Type",
+            "orderId": data.orderID? data.orderID : "101",
+            "date": data.dueDate? data.dueDate : "MM/HH/DD",
+            "createdAt": data.orderDate? data.orderDate : "MM/HH/DD",
+            "customerName": data.customer.name? data.customer.name : "Customer Name",
+            "customerAddress": data.customer.address? data.customer.address : "Customer Address",
+            "phoneNumber": data.customer.phone_number? data.customer.phone_number : "+91-XXXXXXXXXX",
+            "orderItems": data.orderItem? data.orderItem : [
+                { "product_name": "product name", "product_price": 0, "quantity": 0 },
+                { "product_name": "prodcut name", "product_price": 0, "quantity": 0 },
+                { "product_name": "product name", "product_price": 0, "quantity": 0 },
             ],
-            "totalPrice": 0
+            "totalPrice": data.orderItem? data.orderItem.reduce((sum,item) => sum + (item.product_price * item.quantity),0 ) : 0
         });
         return () => { };
     }, [data]);
@@ -54,7 +50,7 @@ function OrderCardModel({ orderType, data }) {
 
     return (
         <div className="order-card-model-container">
-            <h1>Order Type</h1>
+            <h1>{dataCard["orderType"]}</h1>
             <div className="order-card-model-content">
                 <div className="card-row">
                     <div>
@@ -93,10 +89,10 @@ function OrderCardModel({ orderType, data }) {
                                 <h3>Quantity</h3>
                             </div>
                             <div className="table-body">
-                                {dataCard["products"] && dataCard["products"].map((el, index) =>
+                                {dataCard["orderItems"] && dataCard["orderItems"].map((el, index) =>
                                     <div className="table-row" key={index}>
-                                        <p>{el.productName}</p>
-                                        <p>{el.price}</p>
+                                        <p>{el.product_name}</p>
+                                        <p>{el.product_price}</p>
                                         <p>{el.quantity}</p>
                                     </div>
                                 )}
@@ -104,7 +100,7 @@ function OrderCardModel({ orderType, data }) {
                         </div>
                         <div className="total-price">
                             <h3>Total Price</h3>
-                            <p>{dataCard["totalPrice"]}</p>
+                            <p>{dataCard["totalPrice"]}Ks</p>
                         </div>
                     </div>
                 </div>
