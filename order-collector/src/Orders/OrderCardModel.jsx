@@ -7,11 +7,12 @@ const delete_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
 const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 </svg>
-function OrderCardModel({ data }) {
+function OrderCardModel({ data,setDeletedOrder }) {
     let [status, setStatus] = useState("Pending");//selected status
     let refObj = useRef({});//DOM references
     let status_options = ["pending", "completed", "cancelled"];//can't change cause this is data flow 
     let [dataCard, setDataCard] = useState({});
+    //let [deleteFlag,setDeleteFlag] = useState(false);
     useEffect(() => {
         setDataCard({
             "orderType": data.orderType? data.orderType : "Order Type",
@@ -47,6 +48,7 @@ function OrderCardModel({ data }) {
             refObj.current["status-options"].style.paddingBottom = "0px";
         }
     }, []);
+    
 
     return (
         <div className="order-card-model-container">
@@ -110,7 +112,7 @@ function OrderCardModel({ data }) {
                     <h3>Status :</h3>
                     <p className="pending-btn" id={`${status}-btn1`}>{status}</p>
                 </div>
-                <button className="update-order-btn"> {delete_icon} Delete Order</button>
+                <button className="update-order-btn" onClick={() => {console.log("Deleted : " , data);setDeletedOrder(data);}}> {delete_icon} Delete Order</button>
                 <div className="update-status-gp">
                     <button className="update-order-btn" onClick={() => handle_status_options()}>{update_icon} Update Status</button>
                     <div className="status-options" ref={(el) => { if (el) refObj.current["status-options"] = el }}>

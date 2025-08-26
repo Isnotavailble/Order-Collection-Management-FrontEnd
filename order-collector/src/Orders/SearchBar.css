@@ -43,7 +43,7 @@
     position: absolute;
     
     display: flex;
-    margin-top:35px;
+    margin-top:39px;
     margin-left :136px;
     border-radius: 5px;
     flex: 1;
@@ -70,4 +70,18 @@
     width : 100%;
     padding: 10px; 
 
+}
+#search-btn{
+    width : 50px;
+    margin:0px;
+    position: relative;
+    left : 6px;
+    top:3.7px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+#search-btn svg {
+    color : rgb(231, 230, 230);
+    width : 20px;
+    height: 18px;
 }
