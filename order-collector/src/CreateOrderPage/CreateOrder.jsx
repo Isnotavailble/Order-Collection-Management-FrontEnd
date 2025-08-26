@@ -2,6 +2,7 @@ import "./CreateOrder.css";
 import TrashPic from "../assets/trash.svg";
 import PlusPic from "../assets/plus.svg";
 import { useEffect, useRef, useState } from "react";
+import OverlayV1 from "../ErrorOverlays/OverlayV1";
 const SendOrderPic = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
 </svg>
@@ -17,7 +18,7 @@ function CreateOrder() {
     let [row, setRow] = useState([{
         "id": Date.now(),
         "productName": "",
-        "quantity": "",
+        "quantity": 0,
         "price": 0
     }]);
     //seletected type 
@@ -52,12 +53,12 @@ function CreateOrder() {
             return (
                 r.map((el) =>
                     <div className="row" key={el.id}>
-                        <input type="text" placeholder="Type here"
+                        <input type="text" placeholder="Type here" 
                             onChange={e => inputHandle(e, el.id, "productName")} />
-                        <input type="text" placeholder="Type here"
+                        <input type="number" placeholder="Type here" value={el.price}
                             onChange={e => inputHandle(e, el.id, "price")}
                         />
-                        <input type="number" placeholder="1" min="1"
+                        <input type="number" placeholder="1" min="1" value={el.quantity}
                             onChange={e => inputHandle(e, el.id, "quantity")}
                         />
                         <button onClick={() => deleteRow(el.id)}><img id="trash-pic" src={TrashPic} /></button>
@@ -69,6 +70,9 @@ function CreateOrder() {
     // in json obj,to change the key dynamically : use [key] : value what the fuck is even this fuck js
     function inputHandle(e, mapID, fieldName) {
         //console.log(fieldName);
+        if (fieldName === "price" || fieldName === "quantity"){
+            e.target.value = parseFloat(e.target.value) > 0  ?  parseFloat(e.target.value) : 0;
+        }
         setRow(prev =>
             prev.map(item => item.id === mapID ? { ...item, [fieldName]: e.target.value } : item))
         //console.log("Data input : ", e.target.value);
@@ -104,34 +108,50 @@ function CreateOrder() {
         setRow(p => [...p, { "id": Date.now(), "productName": "", "price": 0 }]);
         console.log("Data added");
     }
+    const checkNull = (obj, fieldName) => {
+        if (obj[fieldName] === "" || obj[fieldName] === null || obj[fieldName] === undefined) {
+            return true;
+        }
+        return false;
+    }
     //because of spring security,have to enter the generated password from spring api 
     //send request the data to api
     function postData(url) {
         let request = {
-            "orderStatus": rightSideData["order"].order_status,
+            "orderStatus": rightSideData["order"].order_status.trim().toLowerCase(),
             "orderDate": rightSideData["order"].start_date,
             "dueDate": rightSideData["order"].end_date,
             "orderType": orderType,
             "userID": 2,//Test
-            "customer": {
-                "customerName": rightSideData["customer"].name,
-                "phoneNumber": rightSideData["customer"].phone_number,
-                "customerAddress": rightSideData["customer"].address
+            "customer": checkNull(rightSideData["customer"], "name") || checkNull(rightSideData["customer"], "phone_number") || checkNull(rightSideData["customer"], "address") ? "" : {
+                "customerName": rightSideData["customer"].name.trim(),
+                "phoneNumber": rightSideData["customer"].phone_number.trim(),
+                "customerAddress": rightSideData["customer"].address.trim()
             },
-            "orderItems": row.map((el, index) => (
-                {
-                    "quantity": el.quantity,
-                    "priceAt" : el.price,
-                    "product": {
-                        "productName": el.productName,
-                        "productCategory": "Not Yet",
-                        "price": el.price
+            "orderItems": row.filter((item, index) =>
+                item.price < 1 || item.quantity < 1 || item.productName === null || item.productName === ""
+            ).length > 0 || row.length === 0 ? ""
+                :
+                row.map((el, index) => (
+                    {
+                        "quantity": el.quantity,
+                        "priceAt": el.price,
+                        "product": {
+                            "productName": el.productName.trim(),
+                            "productCategory": "Not Yet",
+                            "price": el.price
+                        }
                     }
-                }
-            ))
+                ))
         }
-        console.log("request : ", request);
 
+        console.log("request : ", request);
+        let HasNull = Object.values(request).filter((p, index) => p === null || p === "" || p === undefined).length > 0 ? true : false;
+        if (HasNull) {
+            setResponseStatus("Please Check your Field");
+            console.log("Data contain null value");
+            return;
+        }
         fetch(url, {
             method: "POST",
             headers: {
@@ -175,45 +195,49 @@ function CreateOrder() {
         return () => { }
     }, [responseStatus]);
     return (
-        <div className="create-order-content">
-            <h1>Create Order</h1>
-            <div className="create-card">
-                <div className="form">
-                    <div className="form-overlay">
-                        <div className="form-left-side">
-                            <b>Customer Name</b>
-                            <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "name")} />
-                            <b>Customer's Address</b>
-                            <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "address")} />
-                            <b>Customer's PhoneNumber</b>
-                            <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "phone_number")} />
-                            <b>Order Date</b>
-                            <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "start_date")} />
-                            <b>Delivery/PickUp Date </b>
-                            <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "end_date")} />
-                        </div>
-                        <div className="form-right-side">
-                            <div className="product-table">
-                                <div className="row rowHeader">
-                                    <b>Product Name</b>
-                                    <b>Price</b>
-                                    <b>Quantity</b>
+        <div>
+            {responseStatus ? <OverlayV1 message={responseStatus} setResponse={setResponseStatus} /> : null}
+
+            <div className="create-order-content">
+                <h1>Create Order</h1>
+                <div className="create-card">
+                    <div className="form">
+                        <div className="form-overlay">
+                            <div className="form-left-side">
+                                <b>Customer Name</b>
+                                <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "name")} />
+                                <b>Customer's Address</b>
+                                <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "address")} />
+                                <b>Customer's PhoneNumber</b>
+                                <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "phone_number")} />
+                                <b>Order Date</b>
+                                <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "start_date")} />
+                                <b>Delivery/PickUp Date </b>
+                                <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "end_date")} />
+                            </div>
+                            <div className="form-right-side">
+                                <div className="product-table">
+                                    <div className="row rowHeader">
+                                        <b>Product Name</b>
+                                        <b>Price</b>
+                                        <b>Quantity</b>
+                                    </div>
+                                    {generateRow(row)}
+                                    <button id="add-product-btn" onClick={() => { addRow(); console.log("add"); }}><img id="add-icon" src={PlusPic} /> Add a product</button>
                                 </div>
-                                {generateRow(row)}
-                                <button id="add-product-btn" onClick={() => { addRow(); console.log("add"); }}><img id="add-icon" src={PlusPic} /> Add a product</button>
                             </div>
                         </div>
-                    </div>
-                    <div className="btn-row">
-                        <button id="sendBtn" onClick={e => postData("http://localhost:8080/api/auth/uploadOrder")}> {SendOrderPic} <b> Create Order </b></button>
-                        <div className="status-btn-container">
-                            <button id="sendBtn" onClick={() => showAndHideHandler(buttonsGroup.current["status-btn-gp"])}> {MenuBtn} <b>Order Type {orderType ? " : " + orderType : null}</b> </button>
-                            <div className="status-btn-gp" ref={el => { if (el) buttonsGroup.current["status-btn-gp"] = el }}>
-                                {orderStatus.map((el, index) =>
-                                    <button key={index} onClick={() => setOrderType(el)}>{el} </button>)}
+                        <div className="btn-row">
+                            <button id="sendBtn" onClick={e => postData("http://localhost:8080/api/auth/uploadOrder")}> {SendOrderPic} <b> Create Order </b></button>
+                            <div className="status-btn-container">
+                                <button id="sendBtn" onClick={() => showAndHideHandler(buttonsGroup.current["status-btn-gp"])}> {MenuBtn} <b>Order Type {orderType ? " : " + orderType : null}</b> </button>
+                                <div className="status-btn-gp" ref={el => { if (el) buttonsGroup.current["status-btn-gp"] = el }}>
+                                    {orderStatus.map((el, index) =>
+                                        <button key={index} onClick={() => setOrderType(el)}>{el} </button>)}
+                                </div>
                             </div>
+
                         </div>
-                        <b id="status-ms" ref={element => { if (element) buttonsGroup.current["status-ms"] = element }}>{responseStatus ? responseStatus : null}</b>
                     </div>
                 </div>
             </div>

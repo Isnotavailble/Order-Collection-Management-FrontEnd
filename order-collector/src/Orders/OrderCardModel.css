@@ -166,7 +166,7 @@
     height: 24px;
     padding:5px;
     text-align: center;
-    
+    text-transform: capitalize;
     position: relative;
 }
 
@@ -220,6 +220,7 @@
     font-size: 12px;
     background-color:rgba(255, 106, 146, 1);
     color: white;
+    text-transform: capitalize;
 }
 .status-options button:hover {
     background-color: #000000;
@@ -228,7 +229,7 @@
 #pending-btn1 {
     background-color: #ff9a03;
 }
-#complete-btn1 {
+#completed-btn1 {
     background-color: #079651;
 }
 #cancelled-btn1 {

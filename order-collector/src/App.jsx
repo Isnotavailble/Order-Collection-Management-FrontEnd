@@ -33,6 +33,8 @@ function App() {
   },[contentHeight]);
   
   useEffect(() => {
+    //reset the scroll 
+    window.scrollTo(0,0);
     console.log("user at : ", userLocation);
     if(userLocation.pathname === "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
       document.getElementById("page-content").style.marginTop = "0px";

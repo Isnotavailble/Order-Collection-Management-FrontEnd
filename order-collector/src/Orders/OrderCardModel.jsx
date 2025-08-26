@@ -10,7 +10,7 @@ const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
 function OrderCardModel({ data }) {
     let [status, setStatus] = useState("Pending");//selected status
     let refObj = useRef({});//DOM references
-    let status_options = ["Pending", "Completed", "Cancelled"];
+    let status_options = ["pending", "completed", "cancelled"];//can't change cause this is data flow 
     let [dataCard, setDataCard] = useState({});
     useEffect(() => {
         setDataCard({

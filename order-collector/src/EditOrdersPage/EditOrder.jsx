@@ -217,8 +217,8 @@ function EditOrders(props) {
             "customerName": rightSideData["customer"].name.trim(),
             "customerAddress": rightSideData["customer"].address.trim(),
             "phoneNumber": rightSideData["customer"].phone_number.trim(),
-            "orderItems": row.filter((item, _) => item.productName !== "" && item.price > 0 && item.quantity > 0)
-                .map((item, _) => {
+            "orderItems": row.length === 0 || row.filter((item, _) => item.productName === "" || item.price < 1 || item.quantity < 1).length > 0 ? "" :
+                row.map((item, _) => {
                     return ({
                         "orderItemID": item.order_item_id,
                         "productName": item.productName.trim(),
@@ -231,7 +231,7 @@ function EditOrders(props) {
         }
         console.log("requestDTO : ", requestDTO);
         //break point if null 
-        let HasNull = Object.values(requestDTO).filter((item, _) => item === null || item === "").length > 0 ? true : false;
+        let HasNull = Object.values(requestDTO).filter((item, _) => item === undefined || item === null || item === "").length > 0 ? true : false;
         if (HasNull) {
             console.log("has null ", HasNull);
             setResponse("PLease check your order's field");
