@@ -93,6 +93,7 @@
     font-weight: bold;
 }
 
+
 .table-body {
     max-height: 180px;
     overflow-y: auto;
@@ -114,6 +115,7 @@
 .table-row p {
     text-align: center;
     font-weight: normal;
+    
     color: white;
 }
 
@@ -162,9 +164,9 @@
     background-color: #ff9a03;
     border-radius: 9px;
     height: 24px;
-    width : 11ch;
+    width: 11ch;
     height: 24px;
-    padding:5px;
+    padding: 5px;
     text-align: center;
     text-transform: capitalize;
     position: relative;
@@ -187,7 +189,7 @@
 }
 
 .update-order-btn:hover {
-    
+
     cursor: pointer;
     padding-left: 20px;
     width: 180px;
@@ -197,41 +199,47 @@
     width: 26px;
     height: 40px;
 }
-.status-options{
+
+.status-options {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgba(51, 48, 51, 0.932);
-    width : 110px;
+    width: 110px;
     border-radius: 10px;
     margin-top: 10px;
     padding-top: 10px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
     max-height: 100px;
     overflow: hidden;
     transition: all ease 0.2s;
-    gap:5px;
+    gap: 5px;
 }
+
 .status-options button {
-    width : 77px;
+    width: 77px;
     padding: 8px;
     font-size: 12px;
-    background-color:rgba(255, 106, 146, 1);
+    background-color: rgba(255, 106, 146, 1);
     color: white;
     text-transform: capitalize;
 }
+
 .status-options button:hover {
     background-color: #000000;
     cursor: pointer;
 }
+
 #pending-btn1 {
     background-color: #ff9a03;
 }
+
 #completed-btn1 {
     background-color: #079651;
 }
+
 #cancelled-btn1 {
     background-color: #e00a3c;
 }

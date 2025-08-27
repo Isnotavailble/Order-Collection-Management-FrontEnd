@@ -27,6 +27,7 @@
     z-index: 22;
 }
 .overlay-e .bg .e-container b {
+    text-align: center;
     font-size: 22px;
     margin-bottom: 10px;
     text-transform: capitalize;

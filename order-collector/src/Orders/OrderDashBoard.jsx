@@ -116,7 +116,7 @@ function OrderDashBoard() {
                     <button id="cancelled-btn" className="upper-btn" onClick={e => { filterOrder("cancelled", null, 2); }}>Cancelled</button>
                 </div>
                 <div className="order-cards-list">
-                    {orders.map((order, index) => <div key={`orderCard-` + index}><OrderCardModel data={order} setDeletedOrder={setDeletedOrder} /></div>)}
+                    {orders.map((order, index) => <div key={`orderCard-` + index + "ID-" + order.orderID}><OrderCardModel data={order} setDeletedOrder={setDeletedOrder} /></div>)}
 
                 </div>
 

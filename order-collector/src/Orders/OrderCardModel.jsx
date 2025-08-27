@@ -7,27 +7,28 @@ const delete_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
 const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 </svg>
-function OrderCardModel({ data,setDeletedOrder }) {
-    let [status, setStatus] = useState("Pending");//selected status
+function OrderCardModel({ data, setDeletedOrder }) {
+    let [status, setStatus] = useState( data.orderStatus.toLowerCase());//selected status
     let refObj = useRef({});//DOM references
     let status_options = ["pending", "completed", "cancelled"];//can't change cause this is data flow 
+    let [stateFlag, setStateFlag] = useState(false);
     let [dataCard, setDataCard] = useState({});
     //let [deleteFlag,setDeleteFlag] = useState(false);
     useEffect(() => {
         setDataCard({
-            "orderType": data.orderType? data.orderType : "Order Type",
-            "orderId": data.orderID? data.orderID : "101",
-            "date": data.dueDate? data.dueDate : "YY/MM/DD",
-            "createdAt": data.orderDate? data.orderDate : "YY/MM/DD",
-            "customerName": data.customer.name? data.customer.name : "Customer Name",
-            "customerAddress": data.customer.address? data.customer.address : "Customer Address",
-            "phoneNumber": data.customer.phone_number? data.customer.phone_number : "+95-XXXXXXXXXX",
-            "orderItems": data.orderItem? data.orderItem : [
+            "orderType": data.orderType ? data.orderType : "Order Type",
+            "orderId": data.orderID ? data.orderID : "101",
+            "date": data.dueDate ? data.dueDate : "YY/MM/DD",
+            "createdAt": data.orderDate ? data.orderDate : "YY/MM/DD",
+            "customerName": data.customer.name ? data.customer.name : "Customer Name",
+            "customerAddress": data.customer.address ? data.customer.address : "Customer Address",
+            "phoneNumber": data.customer.phone_number ? data.customer.phone_number : "+95-XXXXXXXXXX",
+            "orderItems": data.orderItem ? data.orderItem : [
                 { "product_name": "product name", "product_price": 0, "quantity": 0 },
                 { "product_name": "prodcut name", "product_price": 0, "quantity": 0 },
                 { "product_name": "product name", "product_price": 0, "quantity": 0 },
             ],
-            "totalPrice": data.orderItem? data.orderItem.reduce((sum,item) => sum + (item.product_price * item.quantity),0 ) : 0
+            "totalPrice": data.orderItem ? data.orderItem.reduce((sum, item) => sum + (item.product_price * item.quantity), 0) : 0
         });
         return () => { };
     }, [data]);
@@ -48,7 +49,33 @@ function OrderCardModel({ data,setDeletedOrder }) {
             refObj.current["status-options"].style.paddingBottom = "0px";
         }
     }, []);
-    
+    //update status option
+    function updateStatus(orderId, status) {
+        fetch("http://localhost:8080/api/auth/updateOrderStatus/" + orderId + "?newStatus=" + status, {
+            method: "PUT"
+        })
+            .then(res => {
+                if (!res.ok)
+                    return res.json().then(error => { throw new Error(error.message || "Unknown Error") });
+                return res.json();
+            })
+            .then(data => {
+                console.log("Response : ", data.message);
+            })
+            .catch(error => {
+                console.log("Error" + error.message);
+            });
+    }
+    useEffect(() => {
+        console.log("Status : ", data);
+        if (stateFlag === true) {
+            data.orderStatus = status.toLowerCase();
+            updateStatus(data.orderID, status);
+            console.log("Status changed to : ", status);
+        }
+        setStateFlag(true);
+        return () => { }
+    }, [status]);
 
     return (
         <div className="order-card-model-container">
@@ -112,7 +139,7 @@ function OrderCardModel({ data,setDeletedOrder }) {
                     <h3>Status :</h3>
                     <p className="pending-btn" id={`${status}-btn1`}>{status}</p>
                 </div>
-                <button className="update-order-btn" onClick={() => {console.log("Deleted : " , data);setDeletedOrder(data);}}> {delete_icon} Delete Order</button>
+                <button className="update-order-btn" onClick={() => { console.log("Deleted : ", data); setDeletedOrder(data); }}> {delete_icon} Delete Order</button>
                 <div className="update-status-gp">
                     <button className="update-order-btn" onClick={() => handle_status_options()}>{update_icon} Update Status</button>
                     <div className="status-options" ref={(el) => { if (el) refObj.current["status-options"] = el }}>
@@ -121,7 +148,6 @@ function OrderCardModel({ data,setDeletedOrder }) {
                         }
                     </div>
                 </div>
-
             </div>
         </div>
     )
