@@ -1,34 +1,41 @@
+/*The whole container of card
+ display : block
+*/
+
 .order-card-model-container {
-    background-color: #545454;
+    background-color: #545454ec;
     border-radius: 20px;
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 20px;
+    padding-top: 4px;
+    box-shadow: black 1px 1px 8px;
 
 }
 
 .order-card-model-container h1 {
     color: white;
-    font-size: 33px;
-
+    font-size: 37px;
     letter-spacing: 4px;
 }
 
 .order-card-model-container p {
     color: white;
     margin-top: -20px;
-    font-size: 18px;
-    font-weight: normal;
-    letter-spacing: 3px;
-}
-
-.order-card-model-container h3 {
-    color: white;
-    font-size: 28px;
+    font-size: 15px;
     font-weight: normal;
     letter-spacing: 2px;
 }
 
+.order-card-model-container h3 {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* content layer */
+/* flex box as table */
 .order-card-model-content {
     display: flex;
     flex-direction: column;
@@ -42,33 +49,31 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-
+    gap:10px;
 }
 
 .order-card-model-content .middle-row p {
     width: 22ch;
 }
 
-
+/*custom table for product
+-block 
+*/
 .products-table {
     width: 100%;
     border-radius: 10px;
     position: relative;
-    right: -47px;
+    right: -37px;
     margin-top: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
     max-width: 74%;
-    background-color: rgb(100, 98, 98);
+    background-color: rgba(100, 98, 98, 0.767);
     display: block;
     /* changed from flex */
 }
 
 .table-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
     border-bottom: 1px solid #ccc;
     padding: 8px 0;
     position: sticky;
@@ -80,22 +85,22 @@
     display: flex;
     flex-direction: row;
     max-height: 70px;
-    gap: 30px;
+    gap: 16px;
 }
 
 .products-table .table-header h3 {
     text-align: center;
-    width: 20ch;
+    width: 22ch;
 }
 
 .products-table .table-header h3 {
-    font-size: 23px;
+    font-size: 19px;
     font-weight: bold;
 }
 
 
 .table-body {
-    max-height: 180px;
+    max-height: 168px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -109,19 +114,20 @@
     padding-top: 34px;
     border-bottom: 1px solid #eee;
     max-height: 50px;
-    gap: 80px;
+    gap: 42px;
+    /*main width of the table idk why :)*/
 }
 
 .table-row p {
     text-align: center;
     font-weight: normal;
-    
     color: white;
+
 }
 
 /* Optional: Style the scrollbar for Webkit browsers */
 .table-body::-webkit-scrollbar {
-    width: 8px;
+    display: block;
 }
 
 .table-body::-webkit-scrollbar-thumb {
@@ -136,7 +142,7 @@
 
 .total-price {
     position: relative;
-    margin-right: 80px;
+    margin-right: 110px;
     float: right;
 }
 
@@ -174,25 +180,25 @@
 
 .update-order-btn {
     background: linear-gradient(90deg, rgba(232, 148, 255, 1) 0%, rgba(255, 106, 146, 1) 100%);
+    text-shadow: 1px 1px 11px rgb(0, 0, 0);
     color: white;
     border-radius: 8px;
     padding: 8px;
-    padding-left: 12px;
-    width: 170px;
-    margin-top: 20px;
-    font-size: 17px;
+    padding-left: 7px;
+    width: 145px;
+    margin-top: 12px;
+    font-size: 15px;
     display: flex;
     align-items: center;
     gap: 6px;
-    max-height: 52px;
+    max-height: 42px;
     transition: width 0.4s ease, padding-left 0.4s ease;
 }
 
 .update-order-btn:hover {
-
     cursor: pointer;
     padding-left: 20px;
-    width: 180px;
+    width: 165px;
 }
 
 .update-order-btn svg {
@@ -233,13 +239,16 @@
 }
 
 #pending-btn1 {
+    box-shadow: 1px 1px 6px #ff9a03;
     background-color: #ff9a03;
 }
 
 #completed-btn1 {
+    box-shadow: 1px 1px 6px #079651 ;
     background-color: #079651;
 }
 
 #cancelled-btn1 {
+    box-shadow: 1px 1px 10px #c0143c;
     background-color: #e00a3c;
 }

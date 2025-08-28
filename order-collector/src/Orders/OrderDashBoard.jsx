@@ -1,9 +1,11 @@
 import { WebContext } from "../Auth.jsx";
 import "./OrderDashBoard.css"
 import SearchBar from "./SearchBar.jsx";
+import { update_icon } from "./OrderCardModel.jsx";//from card model
 import OrderCardModel from "./OrderCardModel.jsx";
 import { useEffect, useContext, useState } from "react";
 import OverlayV1 from "../ErrorOverlays/OverlayV1.jsx";
+import ScrollUpBtn from "../assets/CustomButton/ScrollUpBtn.jsx";
 function OrderDashBoard() {
     let [orders, setOrders] = useState([]);//all orders of the user
     let [responseMessage, setResponseMessage] = useState("");//response message from the server
@@ -117,10 +119,8 @@ function OrderDashBoard() {
                 </div>
                 <div className="order-cards-list">
                     {orders.map((order, index) => <div key={`orderCard-` + index + "ID-" + order.orderID}><OrderCardModel data={order} setDeletedOrder={setDeletedOrder} /></div>)}
-
                 </div>
-
-
+                <ScrollUpBtn/>
             </div>
         </div>
     );

@@ -1,0 +1,24 @@
+
+/*scroll up helper btn*/
+#go-up {
+    background-color:white;
+    position: fixed;
+    width : 60px;
+    height: 60px;
+    right : 30px;
+    bottom: 50px;
+    border-radius: 100%;
+    box-shadow: 1px 1px 17px #200817;
+    transition: all ease 0.3s;
+}
+#go-up svg {
+    width : 50px;
+    height: 50px;
+    rotate: 180deg;
+    color : #c71585;
+}
+#go-up:hover{
+    box-shadow: 1px 1px 25px #a0809a;
+    cursor: pointer;
+    transform: scale(1.1);
+}

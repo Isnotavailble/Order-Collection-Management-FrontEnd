@@ -4,7 +4,7 @@ const delete_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
 </svg>
-const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+export const update_icon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 </svg>
 function OrderCardModel({ data, setDeletedOrder }) {
@@ -96,7 +96,7 @@ function OrderCardModel({ data, setDeletedOrder }) {
                     </div>
                 </div>
                 <div className="card-row middle-row">
-                    <div>
+                    <div className="customer-details">
                         <div className="dd">
                             <h3>Customer</h3>
                             <p>{dataCard["customerName"]}</p>
@@ -116,6 +116,7 @@ function OrderCardModel({ data, setDeletedOrder }) {
                                 <h3>Product Name</h3>
                                 <h3>Price</h3>
                                 <h3>Quantity</h3>
+                                <h3>Total</h3>
                             </div>
                             <div className="table-body">
                                 {dataCard["orderItems"] && dataCard["orderItems"].map((el, index) =>
@@ -123,6 +124,7 @@ function OrderCardModel({ data, setDeletedOrder }) {
                                         <p>{el.product_name}</p>
                                         <p>{el.product_price}</p>
                                         <p>{el.quantity}</p>
+                                        <p>{el.quantity * el.product_price}Ks</p>
                                     </div>
                                 )}
                             </div>

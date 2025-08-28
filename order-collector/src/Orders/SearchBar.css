@@ -4,6 +4,7 @@
     flex-direction: column;
     flex  :1;
     margin-right: -50px;
+    
 }
 .orders-search-bar-container input {
     border-radius: 8px;
@@ -84,4 +85,7 @@
     color : rgb(231, 230, 230);
     width : 20px;
     height: 18px;
+}
+#search-btn,.orders-search-bar-container .orders-search-bar-row button{
+    box-shadow: 1px 1px 6px #c71585;
 }
