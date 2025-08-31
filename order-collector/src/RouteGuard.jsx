@@ -5,8 +5,8 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 function RouteGuard({ children }) {
     let { user } = useContext(WebContext);
-    if (user.role === "Guest") {
-        return (<Navigate to={"/Login"} replace />);
+    if (user.role === "Guest" || user.user_name === "Guest") {
+        return (<Navigate to={"/"} replace />);
     }
 
     return (children);

@@ -1,13 +1,14 @@
 import { WebContext } from "../Auth";
 import { useContext } from "react";
 import ProfileRow from "../UpperRow/ProfileRow";
+
 import "./Home.css";
 function HomePage() {
     const { user, setUser } = useContext(WebContext);
     return (
         <div className="homeContainer">
             <div className="homeContext">
-                <h1>Welcome,User</h1>
+                <h1>Welcome, {user && user.role !== "Guest"? user.user_name : "Guest"}</h1>
                 <div id="line"></div>
                 <p style={{
                     fontSize: "24px",

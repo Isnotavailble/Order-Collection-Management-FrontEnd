@@ -1,7 +1,8 @@
 import "./CreateOrder.css";
 import TrashPic from "../assets/trash.svg";
 import PlusPic from "../assets/plus.svg";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { WebContext } from "../Auth";
 import OverlayV1 from "../ErrorOverlays/OverlayV1";
 const SendOrderPic = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
@@ -11,6 +12,7 @@ const MenuBtn = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
 </svg>
 
 function CreateOrder() {
+    let {user} = useContext(WebContext);
     //status like 404 or somthing like that
     let [responseStatus, setResponseStatus] = useState("");
     // product rows' data 
@@ -122,7 +124,7 @@ function CreateOrder() {
             "orderDate": rightSideData["order"].start_date,
             "dueDate": rightSideData["order"].end_date,
             "orderType": orderType,
-            "userID": 2,//Test
+            "userID": user.id? user.id : null,//Test
             "customer": checkNull(rightSideData["customer"], "name") || checkNull(rightSideData["customer"], "phone_number") || checkNull(rightSideData["customer"], "address") ? "" : {
                 "customerName": rightSideData["customer"].name.trim(),
                 "phoneNumber": rightSideData["customer"].phone_number.trim(),

@@ -14,36 +14,62 @@ import CreateOrder from './CreateOrderPage/CreateOrder.jsx';
 import EditOrders from './EditOrdersPage/EditOrder.jsx';
 import OrderDashBoard from './Orders/OrderDashBoard.jsx';
 function App() {
-  let { user, menu } = useContext(WebContext);
-  let [contentHeight,setContentHeight] = useState(0);
+  let { user, menu, setUser } = useContext(WebContext);
+  let [contentHeight, setContentHeight] = useState(0);
   let userLocation = useLocation();
   let resizeOberver = new ResizeObserver((entries) => {
     let { height } = entries[0].contentRect;
     setContentHeight(height);
     //menu.current["menu-clone"].style.height = height + "px";
   });
+
+  //on the app load for all pages 
+  //check the session if exist auto auto redirect to home page
+  //no need to login and register
   useEffect(() => {
+
+    fetch("http://localhost:8080/api/auth/me", {
+      credentials: "include",
+      method: "GET"
+    })
+      .then(res => {
+        if (!res.ok)
+          return res.json().then(e => { throw new Error(e.message || "Unknow Erro") });
+        return res.json()
+      })
+      .then(data => {
+        setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
+        console.log("data : ", data);
+      })
+      .catch(error => {
+        console.log("Error : ", error.message);
+      });
+
     resizeOberver.observe(document.getElementById("page-content"));
     return () => resizeOberver.disconnect;
   }, []);
   useEffect(() => {
+    console.log("User : ", user);
+    return () => { }
+  }, [user]);
+  useEffect(() => {
     if (menu.current["menu-clone"])
-    menu.current["menu-clone"].style.height = contentHeight + "px";
+      menu.current["menu-clone"].style.height = contentHeight + "px";
     console.log("Height : " + contentHeight + "px");
-  },[contentHeight]);
-  
+  }, [contentHeight]);
+
   useEffect(() => {
     //reset the scroll 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     console.log("user at : ", userLocation);
-    if(userLocation.pathname === "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register"){
+    if (userLocation.pathname === "/" || userLocation.pathname.toLowerCase() === "/login" || userLocation.pathname.toLowerCase() === "/register") {
       document.getElementById("page-content").style.marginTop = "0px";
       return;
     }
     //updated : handle redirecting from login and register page
     //load the style before CSS file is load.(Safest way)
     document.getElementById("page-content").style.marginTop = "130px";
-    return () => {}
+    return () => { }
   }, [userLocation.pathname]);
 
   return (
@@ -65,16 +91,22 @@ function App() {
           <Route
             path="/home"
             element={
-              <HomePage />
+              <RouteGuard>
+                <HomePage />
+              </RouteGuard>
             }
           />
 
           <Route
             path='/createorders'
-            element={<CreateOrder />} />
+            element={
+              <RouteGuard>
+                <CreateOrder />
+              </RouteGuard>
+            } />
 
-          <Route path="/editorders" element={<EditOrders/>}/>
-            <Route path="/ordersdashboard" element={<OrderDashBoard/>}/>
+          <Route path="/editorders" element={<RouteGuard><EditOrders /></RouteGuard>} />
+          <Route path="/ordersdashboard" element={<RouteGuard><OrderDashBoard /></RouteGuard>} />
           <Route
             path="/admin"
             element={

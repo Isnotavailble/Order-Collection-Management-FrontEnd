@@ -2,10 +2,11 @@ import { useState, useContext, useEffect } from "react";
 import { WebContext } from "../Auth";
 import "./Login.css";
 import { Link, Navigate } from "react-router-dom";
+
 function Login() {
     const { user, setUser } = useContext(WebContext);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [in_email, setInEmail] = useState("");
+    const [in_password, setInPassword] = useState("");
     const [error, setError] = useState("");
     const formSubmit = (e) => {
         e.preventDefault();
@@ -13,9 +14,13 @@ function Login() {
         fetch("http://localhost:8080/api/auth/login", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({ email, password }),
+            body: new URLSearchParams({
+                email : in_email,
+                password : in_password
+            }),
+            credentials : "include"
         })
             .then(response => {
                 if (!response.ok) {
@@ -27,7 +32,7 @@ function Login() {
                 return response.json();
             })
             .then(data => {
-                setUser(p => ({ ...p, user_name: data.username, role: "user" }));
+                setUser(p => ({ ...p, user_name: data.username,id: data.id, role: "user" }));
                 console.log("Login success: ", data);
 
             })  
@@ -49,8 +54,8 @@ function Login() {
                     <input
                         type="email"
                         placeholder=" Enter email address .."
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        value={in_email}
+                        onChange={e => setInEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -59,8 +64,8 @@ function Login() {
                     <input
                         type="password"
                         placeholder="Enter password .."
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        value={in_password}
+                        onChange={e => setInPassword(e.target.value)}
                         required
                     />
                 </div>

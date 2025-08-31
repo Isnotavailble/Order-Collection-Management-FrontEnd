@@ -6,6 +6,7 @@ export let WebContext = createContext(null);
 function WebContextProvider({children}){
     let [user,setUser]= useState({
         user_name : "Guest",
+        user_id : 0,
         role : "Guest"});
     let menu = useRef({}); 
     return (

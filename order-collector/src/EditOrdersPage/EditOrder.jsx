@@ -3,9 +3,10 @@ import "./EditOrder.css";
 import "../CreateOrderPage/CreateOrderStyleWrapper.jsx";
 import TrashPic from "../assets/trash.svg";
 import PlusPic from "../assets/plus.svg";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import OverlayV1 from "../ErrorOverlays/OverlayV1.jsx";
 import CreateOrderStyleWrapper from "../CreateOrderPage/CreateOrderStyleWrapper.jsx";
+import { WebContext } from "../Auth.jsx";
 const SendOrderPic = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
 </svg>
@@ -14,6 +15,7 @@ const MenuBtn = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
 </svg>
 
 function EditOrders(props) {
+    let {user} = useContext(WebContext);
     //data from api
     let [order_data, setOrderData] = useState(null);
     //for null check
@@ -180,7 +182,7 @@ function EditOrders(props) {
     // findByOrderId
     function getOrderById(id) {
         console.log("input id  : ", id);
-        fetch("http://localhost:8080/api/auth/getOrderById?requestId=" + id)
+        fetch("http://localhost:8080/api/auth/getOrderById?requestId=" + id + "&userId=" + user.id)
             .then(response => {
                 if (!response.ok)
                     return response.json().then(r => { throw new Error(r.message || "Unknown Error") });
@@ -210,6 +212,7 @@ function EditOrders(props) {
         //in this DTO only orderItemId has right to have null value
         //other fidlds will be filtered so they must have value
         let requestDTO = {
+            "userID" : user.id,
             "orderID": rightSideData["order"].order_id,
             "dueDate": rightSideData["order"].end_date.trim(),
             "orderDate": rightSideData["order"].start_date.trim(),

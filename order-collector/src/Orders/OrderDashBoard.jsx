@@ -7,6 +7,7 @@ import { useEffect, useContext, useState } from "react";
 import OverlayV1 from "../ErrorOverlays/OverlayV1.jsx";
 import ScrollUpBtn from "../assets/CustomButton/ScrollUpBtn.jsx";
 function OrderDashBoard() {
+    let {user} = useContext(WebContext);
     let [orders, setOrders] = useState([]);//all orders of the user
     let [responseMessage, setResponseMessage] = useState("");//response message from the server
     let [deletedOrder, setDeletedOrder] = useState({});
@@ -100,7 +101,7 @@ function OrderDashBoard() {
     }, [deletedOrder])
     //load all orders of the user 
     useEffect(() => {
-        getOrders(2);
+        getOrders(user.id);
     }, []);
     return (
         <div>
@@ -112,10 +113,10 @@ function OrderDashBoard() {
                 <h1>Order DashBoard</h1>
                 <div className="board-upper-row">
                     <SearchBar filterOrder={filterOrder} setData={setOrders} />
-                    <button id="default-btn" className="upper-btn" onClick={e => { getOrders(2); }}>Default</button>
-                    <button id="pending-btn" className="upper-btn" onClick={e => { filterOrder("pending", null, 2); }}>Pending</button>
-                    <button id="complete-btn" className="upper-btn" onClick={e => { filterOrder("completed", null, 2); }}>Completed</button>
-                    <button id="cancelled-btn" className="upper-btn" onClick={e => { filterOrder("cancelled", null, 2); }}>Cancelled</button>
+                    <button id="default-btn" className="upper-btn" onClick={e => { getOrders(user.id); }}>Default</button>
+                    <button id="pending-btn" className="upper-btn" onClick={e => { filterOrder("pending", null, user.id); }}>Pending</button>
+                    <button id="complete-btn" className="upper-btn" onClick={e => { filterOrder("completed", null, user.id); }}>Completed</button>
+                    <button id="cancelled-btn" className="upper-btn" onClick={e => { filterOrder("cancelled", null, user.id); }}>Cancelled</button>
                 </div>
                 <div className="order-cards-list">
                     {orders.map((order, index) => <div key={`orderCard-` + index + "ID-" + order.orderID}><OrderCardModel data={order} setDeletedOrder={setDeletedOrder} /></div>)}
