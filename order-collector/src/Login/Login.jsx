@@ -32,7 +32,7 @@ function Login() {
                 return response.json();
             })
             .then(data => {
-                setUser(p => ({ ...p, user_name: data.username, id: data.id, role: "user" }));
+                setUser(p => ({ ...p, user_name: data.username, id: data.id, email: data.email, role: "user" }));
                 console.log("Login success: ", data);
 
             })

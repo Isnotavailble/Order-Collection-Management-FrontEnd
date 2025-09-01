@@ -7,28 +7,97 @@
     background-color: #c71585;
     padding: 22px;
     width: 100%;
-    top:0px;
-    left:0px;
+    top: 0px;
+    left: 0px;
 }
+
 .profileRow h1 {
     position: relative;
-    left : 100px;
+    left: 100px;
     margin: 0px;
-    color :#f3bbde;
+    color: #f3bbde;
     text-shadow: 2px 2px 12px rgb(58, 58, 58);
-    
+
 }
+
 .profileRow b {
     position: absolute;
-    right: 120px;
-    font-size: 20px;
-    color : rgb(231, 230, 230);
+    right: 130px;
+    top: 30px;
+    font-size: 23px;
+    color: rgb(231, 230, 230);
+    width: 7ch;
 }
-.profileRow svg {
+
+.profileRow button svg {
     position: absolute;
     color: rgb(231, 230, 230);
-    margin-left:10px;
-    right : 50px;
-    width: 50px;
+    margin-left: 10px;
+    right: 10px;
+    top: 20px;
+    width: 200px;
     height: 50px;
+}
+
+.profileRow button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 12px rgb(124, 123, 121);
+}
+
+.profileRow .edit-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 7px;
+    background-color: rgb(34, 34, 34);
+    position: fixed;
+    top: 100px;
+    right: 0px;
+    height: 100vh;
+    max-width: 0px;
+    overflow: hidden;
+    width: 250px;
+    gap: 4px;
+    z-index: 2000;
+    transition: all ease 0.3s;
+
+}
+
+.profileRow .edit-slide h3 {
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.profileRow .edit-slide input {
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    box-shadow: 1px 1px 5px rgb(185, 185, 185);
+    margin-top: -20px;
+}
+
+.profileRow .edit-slide button {
+    margin-top: 20px;
+    border: none;
+    width: 100px;
+    height: 30px;
+    background-color: #c71585;
+    color: white;
+    letter-spacing: 1px;
+}
+
+#header-profile {
+    margin-bottom: -12px;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-shadow: 0px 0px 10px rgb(109, 107, 107);
+}
+
+.profileRow .edit-slide .change-pwd {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
 }

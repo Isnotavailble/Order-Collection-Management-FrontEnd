@@ -15,7 +15,7 @@ const MenuBtn = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
 </svg>
 
 function EditOrders(props) {
-    let {user} = useContext(WebContext);
+    let { user } = useContext(WebContext);
     //data from api
     let [order_data, setOrderData] = useState(null);
     //for null check
@@ -201,6 +201,27 @@ function EditOrders(props) {
                 console.log("Error", error.message);
             });
     }
+    //Time Handling
+    //need to make this separate helper function for reusability
+    useEffect(() => {
+        if (rightSideData["order"].end_date || rightSideData["order"].start_date) {
+            let in_date = new Date(rightSideData["order"].start_date);
+            let today = new Date();
+            let in_end_date = new Date(rightSideData["order"].end_date);
+            today.setHours(0, 0, 0, 0);
+            in_date.setHours(0, 0, 0, 0);
+            in_end_date.setHours(0, 0, 0, 0);
+            if (in_date < today) {
+                setResponse("You are ordering from the past");
+                setRightSideData(prev => ({ ...prev, order: { ...prev.order, start_date: "" } }))
+            }
+            if (in_end_date < today) {
+                setResponse("You are ordering from the past");
+                setRightSideData(prev => ({ ...prev, order: { ...prev.order, end_date: "" } }))
+            }
+        }
+
+    }, [rightSideData["order"].end_date, rightSideData["order"].start_date]);
 
     //update order
     //update api has two features
@@ -212,7 +233,7 @@ function EditOrders(props) {
         //in this DTO only orderItemId has right to have null value
         //other fidlds will be filtered so they must have value
         let requestDTO = {
-            "userID" : user.id,
+            "userID": user.id,
             "orderID": rightSideData["order"].order_id,
             "dueDate": rightSideData["order"].end_date.trim(),
             "orderDate": rightSideData["order"].start_date.trim(),
@@ -279,11 +300,14 @@ function EditOrders(props) {
     return (
         <div>
 
-            {response.toLocaleLowerCase().includes("unable") ||
+            {/*response.toLocaleLowerCase().includes("unable") ||
                 response.toLocaleLowerCase().includes("not found") ||
                 response === "PLease check your order's field" ||
-                response.toLocaleLowerCase().includes("successfully")
-                ? <OverlayV1 message={response} setResponse={setResponse} /> : null}
+                response.toLocaleLowerCase().includes("successfully" ||
+                    response === "You are ordering from the past"
+                )*/
+                response
+                    ? <OverlayV1 message={response} setResponse={setResponse} /> : null}
             <CreateOrderStyleWrapper>
                 <div className="create-order-content">
                     <h1>Edit Order</h1>

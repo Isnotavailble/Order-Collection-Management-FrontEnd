@@ -14,6 +14,7 @@
     flex-direction: row;
     width :auto;
     padding: 20px;
+    box-shadow: 0px 0px 5px black;
     border-radius: 20px;
     gap:70px;
     
@@ -25,6 +26,7 @@
     width : 970px;
     border-radius: 20px;
     background-color: #545454;
+    box-shadow: 0px 0px 8px black;
 }
 
 .create-order-content .form input {

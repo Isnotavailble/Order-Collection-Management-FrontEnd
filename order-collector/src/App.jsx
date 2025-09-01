@@ -40,7 +40,7 @@ function App() {
         return res.json()
       })
       .then(data => {
-        setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
+        setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User", email: data.email }));
         setLoading(false);
         console.log("data of me : ", data);
       })
@@ -93,11 +93,11 @@ function App() {
 
         <Routes>
           {/* Public routes */}
-          {user.id === 0 && loading === false? <Route path="/" element={<PublicPage />} /> : null}
-          {user.id === 0  && loading === false? <Route path="/login" element={<Login />} /> : null}
-          {user.id === 0  && loading === false? <Route path="/register" element={<Register />} /> : null}
+          {user.id === 0 && loading === false ? <Route path="/" element={<PublicPage />} /> : null}
+          {user.id === 0 && loading === false ? <Route path="/login" element={<Login />} /> : null}
+          {user.id === 0 && loading === false ? <Route path="/register" element={<Register />} /> : null}
           {/* Protected routes */}
-          
+
           <Route
             path="/home"
             element={

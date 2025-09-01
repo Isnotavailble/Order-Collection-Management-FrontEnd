@@ -12,7 +12,7 @@ const MenuBtn = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
 </svg>
 
 function CreateOrder() {
-    let {user} = useContext(WebContext);
+    let { user } = useContext(WebContext);
     //status like 404 or somthing like that
     let [responseStatus, setResponseStatus] = useState("");
     // product rows' data 
@@ -39,6 +39,7 @@ function CreateOrder() {
             "end_date": ""
         }
     });
+    let TodayInForrmat = new Date().toISOString().split("T")[0];
     //orderType for btn
     //update : the className should be orderType so keep that in mind !     
     let orderStatus = ["Delivery", "PickUp"];
@@ -55,7 +56,7 @@ function CreateOrder() {
             return (
                 r.map((el) =>
                     <div className="row" key={el.id}>
-                        <input type="text" placeholder="Type here" 
+                        <input type="text" placeholder="Type here"
                             onChange={e => inputHandle(e, el.id, "productName")} />
                         <input type="number" placeholder="Type here" value={el.price}
                             onChange={e => inputHandle(e, el.id, "price")}
@@ -72,8 +73,8 @@ function CreateOrder() {
     // in json obj,to change the key dynamically : use [key] : value what the fuck is even this fuck js
     function inputHandle(e, mapID, fieldName) {
         //console.log(fieldName);
-        if (fieldName === "price" || fieldName === "quantity"){
-            e.target.value = parseFloat(e.target.value) > 0  ?  parseFloat(e.target.value) : 0;
+        if (fieldName === "price" || fieldName === "quantity") {
+            e.target.value = parseFloat(e.target.value) > 0 ? parseFloat(e.target.value) : 0;
         }
         setRow(prev =>
             prev.map(item => item.id === mapID ? { ...item, [fieldName]: e.target.value } : item))
@@ -116,6 +117,30 @@ function CreateOrder() {
         }
         return false;
     }
+    //Time handling
+    useEffect(() => {
+        if (rightSideData["order"].start_date || rightSideData["order"].end_date) {
+            let in_date = new Date(rightSideData["order"].start_date);//order date
+            let in_end_date = new Date(rightSideData["order"].end_date);//due date
+            let today = new Date();
+            in_date.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            in_end_date.setHours(0, 0, 0, 0);
+            //check the order date
+            if (in_date < today) {
+                setResponseStatus("You are ordering from the past!");
+                setRightSideData(prev => ({ ...prev, order: { ...prev["order"], start_date: "" } }));
+            }
+            //check the due date
+            if (in_end_date < today) {
+                setResponseStatus("You are ordering from the past!")
+                setRightSideData(prev => ({ ...prev, order: { ...prev["order"], end_date: "" } }));
+            }
+
+        }
+
+        return () => { }
+    }, [rightSideData["order"].start_date, rightSideData["order"].end_date])
     //because of spring security,have to enter the generated password from spring api 
     //send request the data to api
     function postData(url) {
@@ -124,7 +149,7 @@ function CreateOrder() {
             "orderDate": rightSideData["order"].start_date,
             "dueDate": rightSideData["order"].end_date,
             "orderType": orderType,
-            "userID": user.id? user.id : null,//Test
+            "userID": user.id ? user.id : null,//Test
             "customer": checkNull(rightSideData["customer"], "name") || checkNull(rightSideData["customer"], "phone_number") || checkNull(rightSideData["customer"], "address") ? "" : {
                 "customerName": rightSideData["customer"].name.trim(),
                 "phoneNumber": rightSideData["customer"].phone_number.trim(),
@@ -213,9 +238,9 @@ function CreateOrder() {
                                 <b>Customer's PhoneNumber</b>
                                 <input type="text" placeholder="Type here" onChange={e => inputHandle_V1(e, "customer", "phone_number")} />
                                 <b>Order Date</b>
-                                <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "start_date")} />
+                                <input type="date" placeholder="Type here" value={rightSideData["order"].start_date} onChange={e => inputHandle_V1(e, "order", "start_date")} />
                                 <b>Delivery/PickUp Date </b>
-                                <input type="date" placeholder="Type here" onChange={e => inputHandle_V1(e, "order", "end_date")} />
+                                <input type="date" placeholder="Type here" value={rightSideData["order"].end_date} onChange={e => inputHandle_V1(e, "order", "end_date")} />
                             </div>
                             <div className="form-right-side">
                                 <div className="product-table">

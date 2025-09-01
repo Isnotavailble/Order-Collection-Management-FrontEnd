@@ -8,6 +8,7 @@ function WebContextProvider({children}){
         user_name : "Guest",
         user_id : 0,
         id : 0,
+        email : "",
         role : "Guest"});
     let menu = useRef({}); 
     return (
