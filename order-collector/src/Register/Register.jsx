@@ -56,7 +56,7 @@ function Register() {
             <button type="submit">Register</button>
             <b>Already have an account? <Link to={"/Login"}>Login</Link> </b>
             {error !== "" ? <b>{error}</b> : null}
-            {user.role !== "Guest" ? <Navigate to="/HomePage" replace /> : null}
+            {user.role !== "Guest" ? <Navigate to="/home" replace /> : null}
         </form>
     </div>);
 }

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { WebContext } from './Auth';
 import NavBar from './Nav/Nav';
 import HomePage from './HomePage/Home';
@@ -15,9 +15,11 @@ import EditOrders from './EditOrdersPage/EditOrder.jsx';
 import OrderDashBoard from './Orders/OrderDashBoard.jsx';
 function App() {
   let { user, menu, setUser } = useContext(WebContext);
+  let [refresh, setRefresh] = useState(false);
   let [contentHeight, setContentHeight] = useState(0);
   let userLocation = useLocation();
   let resizeOberver = new ResizeObserver((entries) => {
+   let navigator = useNavigate(); 
     let { height } = entries[0].contentRect;
     setContentHeight(height);
     //menu.current["menu-clone"].style.height = height + "px";
@@ -28,22 +30,22 @@ function App() {
   //no need to login and register
   useEffect(() => {
 
-    fetch("http://localhost:8080/api/auth/me", {
-      credentials: "include",
-      method: "GET"
-    })
-      .then(res => {
-        if (!res.ok)
-          return res.json().then(e => { throw new Error(e.message || "Unknow Erro") });
-        return res.json()
-      })
-      .then(data => {
-        setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
-        console.log("data : ", data);
-      })
-      .catch(error => {
-        console.log("Error : ", error.message);
-      });
+    // fetch("http://localhost:8080/api/auth/me", {
+    //   credentials: "include",
+    //   method: "GET"
+    // })
+    //   .then(res => {
+    //     if (!res.ok)
+    //       return res.json().then(e => { throw new Error(e.message || "Unknow Erro") });
+    //     return res.json()
+    //   })
+    //   .then(data => {
+    //     setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
+    //     console.log("data : ", data);
+    //   })
+    //   .catch(error => {
+    //     console.log("Error : ", error.message);
+    //   });
 
     resizeOberver.observe(document.getElementById("page-content"));
     return () => resizeOberver.disconnect;
@@ -66,14 +68,19 @@ function App() {
       document.getElementById("page-content").style.marginTop = "0px";
       return;
     }
+    // Redirect if user.id !== 0 and not already on /home
+  if (user && user.id !== 0 && userLocation.pathname !== "/home") {
+    return <Navigate to="/home" replace />;
+  }
     //updated : handle redirecting from login and register page
     //load the style before CSS file is load.(Safest way)
     document.getElementById("page-content").style.marginTop = "130px";
     return () => { }
-  }, [userLocation.pathname]);
+  }, [userLocation.pathname,user.id]);
 
   return (
     <>
+
       <CustomDivHandler pathName={userLocation.pathname}>
         <ProfileRow />
         <NavBar />
