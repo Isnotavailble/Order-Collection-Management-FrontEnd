@@ -54,7 +54,7 @@ function ProfileRow() {
             <MenuButtom />
             <h1>FlashCollect</h1>
             <b>{user && user.user_name !== "Guest" ? user.user_name : "Guest"}</b>
-            <button onClick={() => setClick(prev => !prev)}>{click ? profile_filled : profile}</button>
+            <div  className="pf" onClick={() => setClick(prev => !prev)}>{click ? profile_filled : profile}</div>
             <div className="edit-slide" id="profile-slide">
                 <h3 id="header-profile">Profile</h3>
                 <div>
