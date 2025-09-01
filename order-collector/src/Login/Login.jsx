@@ -17,10 +17,10 @@ function Login() {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                email : in_email,
-                password : in_password
+                email: in_email,
+                password: in_password
             }),
-            credentials : "include"
+            credentials: "include"
         })
             .then(response => {
                 if (!response.ok) {
@@ -32,10 +32,10 @@ function Login() {
                 return response.json();
             })
             .then(data => {
-                setUser(p => ({ ...p, user_name: data.username,id: data.id, role: "user" }));
+                setUser(p => ({ ...p, user_name: data.username, id: data.id, role: "user" }));
                 console.log("Login success: ", data);
 
-            })  
+            })
             .catch(error => {
                 setError(error.message);
                 console.log("Login error: ", error.message);
@@ -46,7 +46,7 @@ function Login() {
 
     return (
         <div className="loginContext">
-
+            {user.role !== "Guest" ? <Navigate to="/home" replace /> : null}
             <form onSubmit={formSubmit}>
                 <h1>LOGIN</h1>
                 <div className="in-row">
@@ -72,7 +72,7 @@ function Login() {
                 <button type="submit" >Login</button>
                 <b>Don't have an account ? <Link to={"/register"}>Register</Link></b>
                 {error !== "" ? <b>{error}</b> : null}
-                {user.role !== "Guest" ? <Navigate to="/HomePage" replace /> : null}
+
             </form>
         </div>
     );

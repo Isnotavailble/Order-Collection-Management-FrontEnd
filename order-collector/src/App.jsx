@@ -15,11 +15,11 @@ import EditOrders from './EditOrdersPage/EditOrder.jsx';
 import OrderDashBoard from './Orders/OrderDashBoard.jsx';
 function App() {
   let { user, menu, setUser } = useContext(WebContext);
-  let [refresh, setRefresh] = useState(false);
+  let [loading, setLoading] = useState(true);
   let [contentHeight, setContentHeight] = useState(0);
   let userLocation = useLocation();
   let resizeOberver = new ResizeObserver((entries) => {
-   let navigator = useNavigate(); 
+    //let navigator = useNavigate(); 
     let { height } = entries[0].contentRect;
     setContentHeight(height);
     //menu.current["menu-clone"].style.height = height + "px";
@@ -29,25 +29,27 @@ function App() {
   //check the session if exist auto auto redirect to home page
   //no need to login and register
   useEffect(() => {
-
-    // fetch("http://localhost:8080/api/auth/me", {
-    //   credentials: "include",
-    //   method: "GET"
-    // })
-    //   .then(res => {
-    //     if (!res.ok)
-    //       return res.json().then(e => { throw new Error(e.message || "Unknow Erro") });
-    //     return res.json()
-    //   })
-    //   .then(data => {
-    //     setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
-    //     console.log("data : ", data);
-    //   })
-    //   .catch(error => {
-    //     console.log("Error : ", error.message);
-    //   });
-
-    resizeOberver.observe(document.getElementById("page-content"));
+    setLoading(true);
+    fetch("http://localhost:8080/api/auth/me", {
+      method: "GET",
+      credentials: "include"
+    })
+      .then(res => {
+        if (!res.ok)
+          return res.json().then(e => { throw new Error(e.message || "Unknow Erro") });
+        return res.json()
+      })
+      .then(data => {
+        setUser(prev => ({ ...prev, user_name: data.username, id: data.id, role: "User" }));
+        setLoading(false);
+        console.log("data of me : ", data);
+      })
+      .catch(error => {
+        console.log("Error : ", error.message);
+        setLoading(false);
+      });
+    if (document.getElementById("page-content"))
+      resizeOberver.observe(document.getElementById("page-content"));
     return () => resizeOberver.disconnect;
   }, []);
   useEffect(() => {
@@ -68,33 +70,34 @@ function App() {
       document.getElementById("page-content").style.marginTop = "0px";
       return;
     }
-    // Redirect if user.id !== 0 and not already on /home
-  if (user && user.id !== 0 && userLocation.pathname !== "/home") {
-    return <Navigate to="/home" replace />;
-  }
+
     //updated : handle redirecting from login and register page
     //load the style before CSS file is load.(Safest way)
     document.getElementById("page-content").style.marginTop = "130px";
     return () => { }
-  }, [userLocation.pathname,user.id]);
+  }, [userLocation.pathname]);
+
+  //loading debug
+  useEffect(() => {
+    console.log("loading.... : ", loading);
+  }, [loading])
 
   return (
     <>
-
       <CustomDivHandler pathName={userLocation.pathname}>
         <ProfileRow />
         <NavBar />
         <div className='cloneNav' ref={element => { if (element) menu.current["menu-clone"] = element }}> </div>
       </CustomDivHandler>
       <div className='context' id="page-content">
+
         <Routes>
           {/* Public routes */}
-          <Route path="/" element={<PublicPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/public" element={<PublicPage />} />
-
+          {user.id === 0 && loading === false? <Route path="/" element={<PublicPage />} /> : null}
+          {user.id === 0  && loading === false? <Route path="/login" element={<Login />} /> : null}
+          {user.id === 0  && loading === false? <Route path="/register" element={<Register />} /> : null}
           {/* Protected routes */}
+          
           <Route
             path="/home"
             element={
@@ -129,6 +132,7 @@ function App() {
             element={<Navigate to={user.role === 'Guest' ? "/login" : "/home"} replace />}
           />
         </Routes>
+
       </div>
     </>
   );
