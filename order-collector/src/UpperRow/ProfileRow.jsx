@@ -13,11 +13,11 @@ let profile = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fil
 function ProfileRow() {
     let { user, setUser } = useContext(WebContext);
     let [click, setClick] = useState(false);
-    let [response,setResponse] = useState(null);
+    let [response, setResponse] = useState(null);
     let [input, setInput] = useState({
         "username": user.user_name, "email": user.email, "password": "", "confirm_password": ""
     });
-
+    let [valid, setValid] = useState(false);
 
     useEffect(() => {
         let profile_slide = document.getElementById("profile-slide");
@@ -53,12 +53,40 @@ function ProfileRow() {
                 console.log("Error : ", error.message);
             })
     }
+    const check_user = () => {
+        fetch("http://localhost:8080/api/auth/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                email: input.email,
+                password: input.password
+            }),
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(e => { throw new Error(e.message || 'Login failed'); });
+
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                setValid(true);
+                confirm_handler();
+                console.log("Update", data);
+
+            })
+            .catch(error => {
+                setValid(false);
+                console.log("Login error: ", error.message);
+            });
+    }
     const confirm_handler = () => {
-        if (input.confirm_password !== input.password) {
-            setResponse("Password doesn't match!");
-            alert("Password doesn't match");
-            return;
-        }
+
+
         fetch("http://localhost:8080/api/auth/editProfile", {
             method: "PUT",
             credentials: "include",
@@ -66,9 +94,7 @@ function ProfileRow() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "email": input.email,
-                "username": input.username,
-                "password": input.confirm_password
+                "username": input.username
             })
 
         })
@@ -108,24 +134,16 @@ function ProfileRow() {
                         onChange={(e) => { setInput(p => ({ ...p, "username": e.target.value })); }}
                     />
                 </div>
-                <div>
-                    <h3>Email</h3>
-                    <input type="email" placeholder="Enter new email address.." value={input.email}
-                        onChange={(e) => { setInput(prev => ({ ...prev, "email": e.target.value })) }} />
-                </div>
-                <div className="change-pwd">
-                    <h3>Change Password</h3>
-                    <input placeholder="old password.." type="password" minLength={8}
-                        onChange={(e) => { setInput(prev => ({ ...prev, "password": e.target.value })) }} /><br></br>
-                    <input placeholder="new password.." type="password" minLength={8}
-                        onChange={(e) => { setInput(prev => ({ ...prev, "confirm_password": e.target.value })) }} />
 
+                <div className="change-pwd">
+                    <h3>Password</h3>
+                    <input placeholder="enter password.." type="password" minLength={8}
+                        onChange={(e) => { setInput(prev => ({ ...prev, "password": e.target.value })) }} /><br></br>
                 </div>
-                <button onClick={() => { confirm_handler(); console.log("Up : ", input); }}>Confirm</button>
+                <button onClick={() => { check_user(); console.log("Up : ", input); }}>Confirm</button>
                 <button onClick={() => { Logout_handler(); }}>Logout</button>
-                <p id="error-ms">{response? response : null}</p>
+                <p id="error-ms">{response ? response : null}</p>
             </div>
-            
         </div>
     );
 }

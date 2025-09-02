@@ -13,7 +13,6 @@ function NavBar() {
                 <Link to={"/createorders"}>Create Order</Link>
                 <Link to={"/editorders"}>Edit Orders</Link>
                 <Link to={"/ordersdashboard"}>Orders</Link>
-                <Link to={"/contactus"}>Contact Us</Link>
                 </div>
             </div>
 

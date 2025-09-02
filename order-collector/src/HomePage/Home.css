@@ -25,14 +25,24 @@
     color: #c71585;
     letter-spacing: 2px;
 }
-.homeContext .feat-box {
+.feat-box {
     display: flex;
     position: relative;
+    align-items: center;
+    max-width: 770px;
+    gap : 30px;
+
+    
+}
+#book{
+    position: relative;
+    top : 10px;
+    margin:10px;
 }
 .feat-box .feat {
     border: 3px white solid;
     border-radius: 8px;
-    padding : 14px;
+    padding : 16px;
 }
 .feat-box p {
     font-size: 18px;    
@@ -47,7 +57,7 @@
 }
 .feat-box .feat button svg {
     color : white;
-    margin-right:4px;
+    margin-right:7px;
     width : 30px;
     height: 30px;
 }
