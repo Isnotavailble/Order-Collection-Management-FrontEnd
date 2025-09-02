@@ -19,7 +19,11 @@
     text-shadow: 2px 2px 12px rgb(58, 58, 58);
 
 }
-
+#error-ms {
+    position: relative;
+    color: antiquewhite;
+    top: -20px;
+}
 .profileRow b {
     position: relative;
     left: 69%;

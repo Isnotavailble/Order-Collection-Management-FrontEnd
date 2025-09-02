@@ -19,3 +19,20 @@
     font-weight: 500;
     color: rgb(51, 51, 51);
 }
+.feat-box-header{
+    font-size: 28px;
+    color: #c71585;
+    letter-spacing: 2px;
+}
+.homeContext .feat-box {
+    position: relative;
+    border:#c71585 solid 2px;
+}
+.feat-box p {
+    
+    color : rgb(51, 51, 51);
+}
+.feat-box .feat {
+    background-color: black;
+    
+}

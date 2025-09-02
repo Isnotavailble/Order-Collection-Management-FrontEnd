@@ -13,6 +13,11 @@ let profile = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fil
 function ProfileRow() {
     let { user, setUser } = useContext(WebContext);
     let [click, setClick] = useState(false);
+    let [response,setResponse] = useState(null);
+    let [input, setInput] = useState({
+        "username": user.user_name, "email": user.email, "password": "", "confirm_password": ""
+    });
+
 
     useEffect(() => {
         let profile_slide = document.getElementById("profile-slide");
@@ -48,32 +53,79 @@ function ProfileRow() {
                 console.log("Error : ", error.message);
             })
     }
+    const confirm_handler = () => {
+        if (input.confirm_password !== input.password) {
+            setResponse("Password doesn't match!");
+            alert("Password doesn't match");
+            return;
+        }
+        fetch("http://localhost:8080/api/auth/editProfile", {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "email": input.email,
+                "username": input.username,
+                "password": input.confirm_password
+            })
 
+        })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(e => { throw new Error(e.message || "Unkown error") })
+                }
+                return res.json();
+            })
+            .then(
+                data => {
+                    setUser(p => ({
+                        ...p, email: input.email,
+                        user_name: input.username
+                    }));
+                    setResponse(data.message)
+                    console.log("update  : ", data);
+
+                }
+            )
+            .catch(error => {
+                setResponse(error.message);
+                console.log("Error : ", error.message);
+            })
+    }
     return (
         <div className="profileRow">
             <MenuButtom />
             <h1>FlashCollect</h1>
             <b>{user && user.user_name !== "Guest" ? user.user_name : "Guest"}</b>
-            <div  className="pf" onClick={() => setClick(prev => !prev)}>{click ? profile_filled : profile}</div>
+            <div className="pf" onClick={() => setClick(prev => !prev)}>{click ? profile_filled : profile}</div>
             <div className="edit-slide" id="profile-slide">
                 <h3 id="header-profile">Profile</h3>
                 <div>
                     <h3>Username</h3>
-                    <input type="text" placeholder="Enter new username.." value={user.user_name} />
+                    <input type="text" placeholder="Enter new username.." value={input.username}
+                        onChange={(e) => { setInput(p => ({ ...p, "username": e.target.value })); }}
+                    />
                 </div>
                 <div>
                     <h3>Email</h3>
-                    <input type="email" placeholder="Enter new email address.." value={user.email} />
+                    <input type="email" placeholder="Enter new email address.." value={input.email}
+                        onChange={(e) => { setInput(prev => ({ ...prev, "email": e.target.value })) }} />
                 </div>
                 <div className="change-pwd">
                     <h3>Change Password</h3>
-                    <input placeholder="old password.." type="password" minLength={8} /><br></br>
-                    <input placeholder="new password.." type="password" minLength={8} />
+                    <input placeholder="old password.." type="password" minLength={8}
+                        onChange={(e) => { setInput(prev => ({ ...prev, "password": e.target.value })) }} /><br></br>
+                    <input placeholder="new password.." type="password" minLength={8}
+                        onChange={(e) => { setInput(prev => ({ ...prev, "confirm_password": e.target.value })) }} />
 
                 </div>
-                <button>Confirm</button>
-                <button onClick={() => {Logout_handler();}}>Logout</button>
+                <button onClick={() => { confirm_handler(); console.log("Up : ", input); }}>Confirm</button>
+                <button onClick={() => { Logout_handler(); }}>Logout</button>
+                <p id="error-ms">{response? response : null}</p>
             </div>
+            
         </div>
     );
 }

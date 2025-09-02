@@ -14,7 +14,6 @@ function NavBar() {
                 <Link to={"/editorders"}>Edit Orders</Link>
                 <Link to={"/ordersdashboard"}>Orders</Link>
                 <Link to={"/contactus"}>Contact Us</Link>
-                <Link to={"/about"}>About</Link>
                 </div>
             </div>
 

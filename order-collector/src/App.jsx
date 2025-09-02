@@ -93,9 +93,9 @@ function App() {
 
         <Routes>
           {/* Public routes */}
-          {user.id === 0 && loading === false ? <Route path="/" element={<PublicPage />} /> : null}
-          {user.id === 0 && loading === false ? <Route path="/login" element={<Login />} /> : null}
-          {user.id === 0 && loading === false ? <Route path="/register" element={<Register />} /> : null}
+          {user.id === 0  ? <Route path="/" element={<PublicPage />} /> : null}
+          {user.id === 0 ? <Route path="/login" element={<Login />} /> : null}
+          {user.id === 0 ? <Route path="/register" element={<Register />} /> : null}
           {/* Protected routes */}
 
           <Route
