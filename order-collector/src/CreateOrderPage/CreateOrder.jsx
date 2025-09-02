@@ -149,7 +149,7 @@ function CreateOrder() {
             "orderDate": rightSideData["order"].start_date,
             "dueDate": rightSideData["order"].end_date,
             "orderType": orderType,
-            "userID": user.id ? user.id : null,//Test
+            "userID": user.id ? user.id : "",//Test
             "customer": checkNull(rightSideData["customer"], "name") || checkNull(rightSideData["customer"], "phone_number") || checkNull(rightSideData["customer"], "address") ? "" : {
                 "customerName": rightSideData["customer"].name.trim(),
                 "phoneNumber": rightSideData["customer"].phone_number.trim(),

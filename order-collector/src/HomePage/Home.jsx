@@ -37,7 +37,7 @@ function HomePage() {
                         <p> Quickly add new customer orders with all essential details,
                             reducing manual effort and errors.
                         </p>
-                        <button>{pen}</button>
+                        <button>{pen}Create an Order</button>
                     </div>
                 </div>
             </div>
