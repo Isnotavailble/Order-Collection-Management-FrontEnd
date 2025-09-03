@@ -24,7 +24,7 @@ function Register() {
             .then(data => {
                 console.log("data :", data);
                 setError("");
-                setUser(p => ({ ...p, user_name: data.username, id: data.id, role: "user" }));
+                setUser(p => ({ ...p, user_name: data.username, email : data.email,id: data.id, role: "user" }));
 
             })
             .catch(e => {

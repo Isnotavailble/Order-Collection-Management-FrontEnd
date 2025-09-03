@@ -74,13 +74,14 @@ function ProfileRow() {
                 return response.json();
             })
             .then(data => {
-                setValid(true);
+                setResponse(data.message);
                 confirm_handler();
                 console.log("Update", data);
 
             })
             .catch(error => {
                 setValid(false);
+                setResponse(error.message);
                 console.log("Login error: ", error.message);
             });
     }
@@ -110,13 +111,13 @@ function ProfileRow() {
                         ...p, email: input.email,
                         user_name: input.username
                     }));
-                    setResponse(data.message)
+                    setResponse(data.message);
                     console.log("update  : ", data);
 
                 }
             )
             .catch(error => {
-                setResponse(error.message);
+                setResponse(error.message.includes("password")? "wrong password" : error.message);
                 console.log("Error : ", error.message);
             })
     }

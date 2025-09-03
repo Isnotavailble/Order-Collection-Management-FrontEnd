@@ -1,5 +1,5 @@
 import { WebContext } from "../Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 let DashPic = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">
@@ -20,6 +20,7 @@ let book = <svg id="bookpic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128
 </svg>
 function HomePage() {
     const { user, setUser } = useContext(WebContext);
+    
     return (
         <div className="homeContainer">
             <div className="homeContext">
@@ -44,7 +45,7 @@ function HomePage() {
                             <p> Quickly add new customer orders with all essential details,
                                 reducing manual effort and errors.
                             </p>
-                            <button>{pen}Create an Order</button>
+                            <Link to={"/createorders"}>{pen}Create an Order</Link>
                         </div>
                     </div>
                     <div className="feat-box">
@@ -54,7 +55,7 @@ function HomePage() {
                                 through an intuitive interface,
                                 ensuring flexibility and accuracy.
                             </p>
-                            <button>{edit} Edit Orders</button>
+                            <Link to={"/editorders"}>{edit} Edit Orders</Link>
                         </div>
                     </div>
                     <div className="feat-box">
@@ -63,7 +64,7 @@ function HomePage() {
                                 Get a complete overview of your orders in one place,
                                 with real-time status tracking (Pending, Completed, or Cancelled).
                             </p>
-                            <button> {DashPic} Orders DashBoard</button>
+                            <Link to={"/ordersdashboard"}> {DashPic} Orders DashBoard</Link>
                         </div>
                     </div>
                 </div>
