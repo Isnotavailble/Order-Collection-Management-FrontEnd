@@ -211,12 +211,9 @@ function EditOrders(props) {
             today.setHours(0, 0, 0, 0);
             in_date.setHours(0, 0, 0, 0);
             in_end_date.setHours(0, 0, 0, 0);
-            if (in_date < today) {
-                setResponse("You are ordering from the past");
-                setRightSideData(prev => ({ ...prev, order: { ...prev.order, start_date: "" } }))
-            }
-            if (in_end_date < today) {
-                setResponse("You are ordering from the past");
+            
+            if (in_end_date < in_date) {
+                setResponse("Due date can't be from the past");
                 setRightSideData(prev => ({ ...prev, order: { ...prev.order, end_date: "" } }))
             }
         }

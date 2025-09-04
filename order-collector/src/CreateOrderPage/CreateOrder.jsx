@@ -126,14 +126,10 @@ function CreateOrder() {
             in_date.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
             in_end_date.setHours(0, 0, 0, 0);
-            //check the order date
-            if (in_date < today) {
-                setResponseStatus("You are ordering from the past!");
-                setRightSideData(prev => ({ ...prev, order: { ...prev["order"], start_date: "" } }));
-            }
+            
             //check the due date
-            if (in_end_date < today) {
-                setResponseStatus("You are ordering from the past!")
+            if (in_end_date < in_date) {
+                setResponseStatus("Due date can't be from the past")
                 setRightSideData(prev => ({ ...prev, order: { ...prev["order"], end_date: "" } }));
             }
 
