@@ -85,12 +85,12 @@ function EditOrders(props) {
     //product table add and remove items
     function deleteRow(idToRemoveRow) {
         //setRow(p => p.filter((el, id) => el.id !== idToRemoveRow));
-        setRow(p => p.map((el, index) => {
-            if (el.id === idToRemoveRow) {
-                el.delete = true;
-            }
-            return el;
-        }));
+         setRow(p => p.map((el, index) => {
+             if (el.id === idToRemoveRow) {
+                 el.delete = true;
+             }
+             return el;
+         }));
         console.log("Deleted : ", idToRemoveRow);
     }
     function addRow() {
@@ -229,6 +229,7 @@ function EditOrders(props) {
         //wrapping data into DTO
         //in this DTO only orderItemId has right to have null value
         //other fidlds will be filtered so they must have value
+        //setRow(prev => prev.filter((item, _) => !item.delete));
         let requestDTO = {
             "userID": user.id,
             "orderID": rightSideData["order"].order_id,
@@ -238,7 +239,7 @@ function EditOrders(props) {
             "customerName": rightSideData["customer"].name.trim(),
             "customerAddress": rightSideData["customer"].address.trim(),
             "phoneNumber": rightSideData["customer"].phone_number.trim(),
-            "orderItems": row.length === 0 || row.filter((item, _) => item.productName === "" || item.price < 1 || item.quantity < 1).length > 0 ? "" :
+            "orderItems": row.length === 0 || row.filter((item, _) => item.productName === "" || item.price < 1 || item.quantity < 1 ).length > 0 ? "" :
                 row.map((item, _) => {
                     return ({
                         "orderItemID": item.order_item_id,
