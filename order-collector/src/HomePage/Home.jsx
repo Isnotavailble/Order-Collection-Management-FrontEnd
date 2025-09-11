@@ -69,7 +69,7 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="feat-box">
-                    <b>Get to Know Our System :<a id="book" href="https://shorturl.at/vErqE" target="_blank" rel="noopener noreferrer">{book}</a>
+                    <b>Get to Know Our System :<a id="book" href="https://phonewinttun-dev.gitbook.io/ocms" target="_blank" rel="noopener noreferrer">{book}</a>
                         Tap on Icon to read
                     </b>
                 </div>
