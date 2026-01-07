@@ -9,7 +9,7 @@ function Register() {
     const { user, setUser } = useContext(WebContext);//global varibales in Auth.jsx
     const submitForm = () => {
 
-        fetch("http://localhost:8080/api/auth/createUser", {
+        fetch("http://localhost:8080/api/auth/usersCreate", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
