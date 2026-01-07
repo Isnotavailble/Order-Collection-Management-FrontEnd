@@ -54,7 +54,7 @@ function OrderCardModel({ data, setDeletedOrder }) {
     }, []);
     //update status option
     function updateStatus(orderId, status,userId) {
-        fetch("http://localhost:8080/api/auth/updateOrderStatus/" + orderId + "?newStatus=" + status + "&userId=" + userId, {
+        fetch("http://localhost:8080/api/auth/orders/ordersStatusUpdate/" + orderId + "?newStatus=" + status + "&userId=" + userId, {
             method: "PUT"
         })
             .then(res => {

@@ -182,7 +182,7 @@ function EditOrders(props) {
     // findByOrderId
     function getOrderById(id) {
         console.log("input id  : ", id);
-        fetch("http://localhost:8080/api/auth/getOrderById?requestId=" + id + "&userId=" + user.id)
+        fetch("http://localhost:8080/api/auth/orders/ordersById?requestId=" + id + "&userId=" + user.id)
             .then(response => {
                 if (!response.ok)
                     return response.json().then(r => { throw new Error(r.message || "Unknown Error") });
@@ -261,7 +261,7 @@ function EditOrders(props) {
         }
 
 
-        fetch("http://localhost:8080/api/auth/orders/edit", {
+        fetch("http://localhost:8080/api/auth/orders/ordersEdit", {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',

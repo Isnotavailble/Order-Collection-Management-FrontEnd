@@ -8,46 +8,65 @@
 .publicConext .leftSide h1 {
     font-size: 69px;
     color: #c71585;
+    text-shadow: #c73591 0px 0px 7px;
 }
 
 .publicConext .leftSide {
-    width: 100%;
+    padding: 10px;
+    margin: 40px;
+    padding-left: 70px;
+    padding-right: 120px;
+    padding-bottom: 70px;
+    border-radius: 20px;
+    background-color: rgba(235, 233, 233, 0.103);
+    box-shadow: 0px 0px 10px rgba(230, 20, 202, 0.795);
+    
+
 }
 
 .publicConext .leftSide .textBox {
-    width: 560px;
+    width: 590px;
 }
 
 .publicConext .leftSide p {
-    font-size: 22px;
+    font-size: 20px;
+    text-align: justify;
+    color: rgb(70, 65, 65);
 }
 
 .publicConext .rightSide {
     display: flex;
-    position: relative;
+    position: fixed;
+    right: 0px;
     align-items: center;
-    gap: 10px;
+    gap: 0px;
     flex-direction: column;
-    background-color: black;
-    height: 100vh;
-    padding:10px;
-    width :550px;
+    background-color: rgb(20, 20, 20);
+    box-shadow: -1px 0px 15px rgb(20, 20, 20);
+    height: 98.5vh;
+    border-top-left-radius: 70px;
+    border-bottom-left-radius: 70px;
+    padding: 10px;
+    padding-bottom: 0px;
+    width: 400px;
 }
 
 .publicConext .rightSide h1 {
-    color: white;
+    color: rgb(233, 232, 232);
     font-size: 44px;
 
 }
+
 .publicConext .rightSide p {
     color: white;
     font-size: 19px;
     margin-bottom: 140px;
 
 }
+
 .publicConext .rightSide a {
     background-color: #c71585;
-    color: rgb(234, 235, 236);
+    color: rgb(220, 222, 223);
     font-size: 20px;
     width: 180px;
     padding-top: 18px;
@@ -56,4 +75,12 @@
     text-decoration: none;
     border-radius: 30px;
     margin-bottom: 60px;
+    box-shadow: #f00ab6 0px 0px 230px;
+    transition: all ease 0.45s;
+    
+}
+.publicConext .rightSide a:hover {
+    background-color: #fa029f;
+    padding-right : 5px;
+    padding-left: 9px;
 }

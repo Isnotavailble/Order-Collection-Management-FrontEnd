@@ -7,12 +7,13 @@ import { useEffect, useContext, useState } from "react";
 import OverlayV1 from "../ErrorOverlays/OverlayV1.jsx";
 import ScrollUpBtn from "../assets/CustomButton/ScrollUpBtn.jsx";
 function OrderDashBoard() {
-    let {user} = useContext(WebContext);
+    let { user } = useContext(WebContext);
     let [orders, setOrders] = useState([]);//all orders of the user
     let [responseMessage, setResponseMessage] = useState("");//response message from the server
     let [deletedOrder, setDeletedOrder] = useState({});
+    let [error, setError] = useState("");//error message for search bar 
     function getOrders(userId) {
-        fetch("http://localhost:8080/api/auth/getAllOrders?userId=" + userId)
+        fetch("http://localhost:8080/api/auth/orders/allOrders?userId=" + userId)
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(e => {
@@ -38,8 +39,8 @@ function OrderDashBoard() {
     //filter 
     function filterOrder(searchBy, searchValue, userId) {
         let url = searchValue === null ?
-            "http://localhost:8080/api/auth/filterOrders?search=" + searchBy.trim() + "&userId=" + userId :
-            "http://localhost:8080/api/auth/filterOrders?search=" + searchBy.trim() + "&userId=" + userId + "&searchValue=" + searchValue;
+            "http://localhost:8080/api/auth/orders/ordersFilter?search=" + searchBy.trim() + "&userId=" + userId :
+            "http://localhost:8080/api/auth/orders/ordersFilter?search=" + searchBy.trim() + "&userId=" + userId + "&searchValue=" + searchValue;
         console.log(url);
         fetch(url)
             .then(res => {
@@ -65,7 +66,7 @@ function OrderDashBoard() {
     //delete orde
     //delete order
     function deleteAnOrder(orderID) {
-        fetch("http://localhost:8080/api/auth/deleteOrder?deleteRequestID=" + orderID, {
+        fetch("http://localhost:8080/api/auth/orders/ordersDelete?deleteRequestID=" + orderID, {
             method: "DELETE"
         })
             .then(res => {
@@ -105,14 +106,15 @@ function OrderDashBoard() {
     }, []);
     return (
         <div>
-            {responseMessage && <OverlayV1 resetMessage={responseMessage.includes("find orders")}
+            {responseMessage && <OverlayV1
+                resetMessage={responseMessage.includes("find orders")}
                 message={responseMessage}
                 setResponse={setResponseMessage}
             />}
             <div className="order-dashboard-contianer">
                 <h1>Order DashBoard</h1>
                 <div className="board-upper-row">
-                    <SearchBar filterOrder={filterOrder} setData={setOrders} />
+                    <SearchBar filterOrder={filterOrder} setData={setOrders} error={responseMessage} setError={setResponseMessage} />
                     <button id="default-btn" className="upper-btn" onClick={e => { getOrders(user.id); }}>Default</button>
                     <button id="pending-btn" className="upper-btn" onClick={e => { filterOrder("pending", null, user.id); }}>Pending</button>
                     <button id="complete-btn" className="upper-btn" onClick={e => { filterOrder("completed", null, user.id); }}>Completed</button>
@@ -121,7 +123,7 @@ function OrderDashBoard() {
                 <div className="order-cards-list">
                     {orders.map((order, index) => <div key={`orderCard-` + index + "ID-" + order.orderID}><OrderCardModel data={order} setDeletedOrder={setDeletedOrder} /></div>)}
                 </div>
-                <ScrollUpBtn/>
+                <ScrollUpBtn />
             </div>
         </div>
     );

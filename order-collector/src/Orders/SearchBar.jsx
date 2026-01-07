@@ -4,11 +4,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 const searchIcon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 </svg>
-function SearchBar({ setData, filterOrder }) {
+function SearchBar({ setData, filterOrder,error,setError }) {
     let refObj = useRef({});
     let [input, setInput] = useState("");
     let [selected, setSelected] = useState("");
-    let {user} = useContext(WebContext);
+    let { user } = useContext(WebContext);
     let options = [
         "Order ID",
         "Customer",
@@ -19,9 +19,7 @@ function SearchBar({ setData, filterOrder }) {
         "Product Name"];
     let handle_search = () => {
         let searchBy = String(selected).replace(/\s+/g, "").toLowerCase();
-        if (searchBy === "Due Date" || searchBy === "Ordered Date") {
-
-        }
+        
         console.log("In : " + searchBy);
         filterOrder(searchBy, input.trim(), user.id);
     }
@@ -54,7 +52,7 @@ function SearchBar({ setData, filterOrder }) {
                 <div className="orders-search-bar-row">
                     <button id="search-btn"
                         onClick={e => {
-                            setInput(prev => input_type() === "date" ? "mm/dd/yy" : "");
+                            setInput(input_type() === "date" ? "mm/dd/yy" : "");
                             handle_search();
                         }
                         }>{searchIcon}</button>
@@ -65,8 +63,14 @@ function SearchBar({ setData, filterOrder }) {
                         }}
                         onKeyDown={e => {
                             if (e.key === "Enter") {
+
+                                if (!options.includes(selected)) {
+                                    setError("please select an option first");
+                                    return;
+                                }
                                 setInput(input_type() !== "date" ? "" : "mm/dd/yy");
                                 handle_search();
+
 
                             }
                         }}
@@ -76,7 +80,7 @@ function SearchBar({ setData, filterOrder }) {
                 </div>
                 <div className="search-by-options" ref={(el) => { if (el) refObj.current["options"] = el }}>
                     {
-                        options.map((el, index) => <button key={index} onClick={() => { setSelected(el) }}>{el}</button>)
+                        options.map((el, index) => <button key={index} onClick={() => { setSelected(el); setInput(prev => el === options[4] || el === options[5] ? "" : prev ); }}>{el}</button>)
                     }
                 </div>
             </div>

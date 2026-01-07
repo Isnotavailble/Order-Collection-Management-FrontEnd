@@ -251,7 +251,7 @@ function CreateOrder() {
                             </div>
                         </div>
                         <div className="btn-row">
-                            <button id="sendBtn" onClick={e => postData("http://localhost:8080/api/auth/uploadOrder")}> {SendOrderPic} <b> Create Order </b></button>
+                            <button id="sendBtn" onClick={e => postData("http://localhost:8080/api/auth/orders/ordersUpload")}> {SendOrderPic} <b> Create Order </b></button>
                             <div className="status-btn-container">
                                 <button id="sendBtn" onClick={() => showAndHideHandler(buttonsGroup.current["status-btn-gp"])}> {MenuBtn} <b>Order Type {orderType ? " : " + orderType : null}</b> </button>
                                 <div className="status-btn-gp" ref={el => { if (el) buttonsGroup.current["status-btn-gp"] = el }}>
