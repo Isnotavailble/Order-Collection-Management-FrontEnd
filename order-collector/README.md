@@ -38,51 +38,51 @@ This is the overall structure.
 ![alt text](image.png)
 
 ####  Folder
-- **AdminDashBoard**
-This Page was not done in time.There is nothing
-- **assests**
-This is the assests folder like png,fonts and customButton componments.
-- **assests/CustomButton**
-All the custom button componment and its css file.any other files can be ignored.
-- **CreateOrdersPage**
-create orders page and its componments
-- **EditOrdersPage**
-edit orders page and its componments.
-- **ErrorOverlays**
-the componment that display error status in overlay ( z-index)
-- **HomePage**
-home page  componemnt and its css file.
-- **Login**
+- **AdminDashBoard**:
+This Page was not done in time due to internal conflicts. There is nothing yet.
+- **assests**:
+This is the assests folder where we store png,fonts and customButton components.
+- **assests/CustomButton**:
+All the custom button components and their related css file. Any other files can be ignored.
+- **CreateOrdersPage**:
+create orders page and its components
+- **EditOrdersPage**:
+edit orders page and its components.
+- **ErrorOverlays**:
+the component that display error status in overlay ( z-index)
+- **HomePage**:
+home page component and its css file.
+- **Login**:
 login page 
-- **Nav**
-side navigation bar componment
-- **Orders**
-collection of pagecomponment and its style models 
-- **Orders/OrderDashBoard.jsx** 
- a page componment
-- **Orders/OrderCardModel.jsx**
-a card style componment for order dash board page.
-- **Orders/SearchBar.jsx**
-a search bar componment for order dash board page. 
-- **PublicPage**
+- **Nav**:
+side navigation bar component
+- **Orders**:
+collection of page component and its style models 
+- **Orders/OrderDashBoard.jsx**:
+ a page component
+- **Orders/OrderCardModel.jsx**:
+a card style component for order dash board page.
+- **Orders/SearchBar.jsx**:
+a search bar component for order dash board page. 
+- **PublicPage**:
 public page or landing page before login/registor process
-- **Register**
+- **Register**:
 register form page
-- **UpperRow/ProfileRow.jsx**
+- **UpperRow/ProfileRow.jsx**:
 for profile icon and user name on the head div ( including the logout right side bar)
-- **App.jsx**
+- **App.jsx**:
 main of React
-- **Auth.jsx**
+- **Auth.jsx**:
 a user data provider for auth process just to avoid props drilling
-- **CustomDivHandler.jsx**
-just a handler componet that will any child componment when user at `"/" , "/login" , "/register"`
-- **main.jsx**
-main componment of React that wrap App.jsx(can be ignored)
-- **RouteGuard.jsx**
-protect the child componment when unauthorized user enter feature Pages (creatorderpage,...etc)
+- **CustomDivHandler.jsx**:
+just a handler component that will handle any child component when user at `"/" , "/login" , "/register"`
+- **main.jsx**:
+main component of React that wraps App.jsx(can be ignored)
+- **RouteGuard.jsx**:
+protects the child component when unauthorized user enters feature Pages (creatorderpage,...etc)
 
 > ### Note:
-> just run with the cmd not with liver server extension or anyother IDE interactions
+> run with the cmd, not with live server extension or any other IDE interactions
 
 
 
